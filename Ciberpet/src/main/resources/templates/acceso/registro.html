@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear cuenta</title>
+    <link rel="stylesheet" th:href="@{/vendor/fontawesome-free/css/all.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/sb-admin-2.min.css}" />
+    <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900}" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <div class="row">
+                    <div class="col-lg-5 d-none d-lg-block bg-register-image">
+                        <img th:src="@{/imgFront/banner23.png}" alt="bannerRegistrar" width="100%" height="100%">
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">¡Crea una cuenta!</h1>
+                            </div>
+
+                            <form class="user" th:action="@{/registrar-usuario}" th:object="${usuario}" method="post">
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="text" th:field="*{nombre}" class="form-control form-control-user" placeholder="Nombre">
+                                        <div class="text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="text" th:field="*{apellidos}" class="form-control form-control-user" placeholder="Apellido">
+                                        <div class="text-danger" th:if="${#fields.hasErrors('apellidos')}" th:errors="*{apellidos}"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="text" th:field="*{nombreUser}" class="form-control form-control-user" placeholder="Usuario">
+                                        <div class="text-danger" th:if="${#fields.hasErrors('nombreUser')}" th:errors="*{nombreUser}"></div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="text" th:field="*{telefono}" class="form-control form-control-user" placeholder="Teléfono">
+                                        <div class="text-danger" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="email" th:field="*{correo}" class="form-control form-control-user" placeholder="Correo">
+                                    <div class="text-danger" th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></div>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="text" th:field="*{direccion}" class="form-control form-control-user" placeholder="Dirección">
+                                    <div class="text-danger" th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}"></div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="password" th:field="*{contrasena}" class="form-control form-control-user" placeholder="Contraseña">
+                                        <div class="text-danger" th:if="${#fields.hasErrors('contrasena')}" th:errors="*{contrasena}"></div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="password" class="form-control form-control-user" placeholder="Repetir Contraseña" name="contrasenaRepetir">
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 d-flex justify-content-center">
+                                    <button type="submit" class="btn btn-outline-primary">Registrarse</button>
+                                </div>
+                            </form>
+
+                            <hr>
+                            <div class="text-center">
+                                <a class="small" th:href="@{/login}">¿Ya tienes una cuenta? ¡Inicia sesión!</a>
+                            </div>
+
+                            <!-- Alerta -->
+                            <th:block th:utext="${alert}"></th:block>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+    <script th:src="@{/js/sb-admin-2.min.js}"></script>
+</body>
+</html>

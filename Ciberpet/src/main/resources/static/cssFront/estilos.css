@@ -1,0 +1,270 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: white;
+    overflow-x: hidden;
+
+}
+h1{
+    font-size: 45px;
+}
+/* INICIO HEADER */
+.header {
+    margin: 33px 30px 33px 30px;
+    justify-content: space-between;
+    width: 100%;
+    display: flex;
+}
+main img{
+    width: 40%;
+}
+
+.header .logo img {
+    height: 10px;
+}
+
+.logonav {
+    display: flex;
+    width: 50%;
+}
+
+.logonav .nav-links {
+    list-style: none;
+    margin-left: 80px;
+}
+
+.logonav .nav-links li {
+    display: inline-block;
+    padding: 0 30px 0 1px;
+    margin-top: 20px;
+}
+
+.logonav .nav-links a {
+    font-size: 700
+}
+
+.nav-links a {
+    color: #333;
+    text-decoration: none;
+}
+
+.nav-links a:hover {
+    color: #007BFF;
+}
+
+/* FIN HEADER */
+
+/* INICIO BANNER */
+.banner {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.banner img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+article {
+    margin: 100px auto;
+    justify-content: space-between;
+    display: flex;
+    width: 90%;
+
+}
+h2{
+    font-size: 30px;
+
+}
+section {
+    justify-content: space-between;
+    width: 30%;
+}
+section p{
+    font-size: 25px;
+}
+section li{
+    font-size: 25px;
+}
+/* FIN BANNER */
+
+/* INICIO FOOTER */
+footer{
+    background-color: #ff7404;
+    color: white;
+    width: 100%;
+    height: auto;
+    margin-top: 100px
+}
+.caja-footer{
+    display: flex;
+    justify-content:space-around ;
+    width: 100%;
+}
+.caja-footer h2{
+    padding: 50px 0px 30px 0;
+}
+.descripcionfoot{
+    width: 30%;
+    font-size: 25px;
+}
+.caja-redes{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 30%;
+    margin-right: 190px;
+}
+.caja-redes img{
+    width: 30px;
+}
+.caja-contacto{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.caja-contacto p{
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+}
+.caja-contacto img{
+    width: 25px; 
+    height: auto;
+    margin-right: 10px;
+
+}
+.derechos{
+    text-align: center;
+    background-color: #cd6000;
+    padding: 30px;
+    margin-top: 40px;
+}
+/* FIN DEL FOOTER */
+
+
+/* MAIN PAGINA INICIO */
+main{
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin: 0 auto; 
+}
+.caja-principal{
+    width: 40%;
+}
+.caja-principal h1{
+    margin-bottom: 40px;
+}
+
+/* FIN MAIN PAGINA INICIO */
+
+
+/* MAIN 2 */
+#box-wrap img{
+    width: 20%;
+}
+
+#main2{
+    margin-top: 400px;
+    width: 80%;
+    margin: 0 auto; 
+    
+}
+.subtitule{
+    padding:80px 0 15px 0px;
+}
+.servicios{
+    display: flex;
+    box-shadow: #000000;
+    padding: 45px;
+    box-shadow: 7px 0px 8px rgba(0, 0, 0, 0.5); 
+    height: 550px;
+    border-radius: 40px;
+}
+.servicios img{
+    width: 50%;
+}
+.descripcion{
+    margin-left: 100px;
+    width: 70%;
+}
+.descripcion p{
+    font-size: 20px;
+}
+.descripcion ol{
+    font-size: 17px;
+
+}
+.article1{
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+article h2{
+	margin: 30px 90px 30px;
+	width: 100%
+}
+.caja-productos section{
+    display: flex;
+    align-items: center;
+}
+  .box-wrap{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:10%;
+  }
+  .box{
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    text-align: center;
+    gap: 10px; 
+    border-color: #333;
+    box-shadow: #000000;
+    transition:.2s all; 
+    padding: 45px;
+    background-color: white;
+    box-shadow: 0 7px 18px  rgba(0, 0, 0, 0.5);
+    border-radius: 40px;
+
+  }
+  #box-wrap:hover .box{
+    filter:blur(3px);
+    opacity:.5;
+    transform: scale(.98);
+    box-shadow:none;
+  }
+  #box-wrap:hover .box:hover{
+    transform:scale(1);
+    filter:blur(0px);
+    opacity:1;
+    box-shadow:0 8px 20px 0px rgba(0,0,0,0.125);
+  }
+
+/* CAJA PORQUE ELGIRNOS */
+.article2{
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+}
+.h2pqelegirnos{
+    margin: 10px 0px 30px;
+}
+.caja-texto p{
+    padding: 10px;
+}

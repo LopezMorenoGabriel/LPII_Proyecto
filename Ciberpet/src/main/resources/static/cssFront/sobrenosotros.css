@@ -1,0 +1,35 @@
+.cajaobejtivos ul li {
+	padding: 20px 0px 20px 0px
+}
+.contenedorpreguntas{
+	margin-top: 40px
+}
+.contenedorpreguntas h2 {
+	padding: 20px 0px 0px 0px;
+	font-size:80px;
+	color:#cb9c2f;
+}
+
+.cajamision {
+	box-shadow: #000000;
+	padding: 45px;
+	box-shadow: 7px 0px 8px rgba(0, 0, 0, 0.5);
+	height: auto;
+	border-radius: 40px;
+}
+
+.cajavision {
+	box-shadow: #000000;
+	padding: 45px;
+	box-shadow: 7px 0px 8px rgba(0, 0, 0, 0.5);
+	height: auto;
+	border-radius: 40px;
+}
+
+.cajaobejtivos {
+	box-shadow: #000000;
+	padding: 45px;
+	box-shadow: 7px 0px 8px rgba(0, 0, 0, 0.5);
+	height: auto;
+	border-radius: 40px;
+}

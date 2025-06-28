@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ultra&display=swap');
+
+.caja-prod{
+    margin: auto;
+    width: 80%;
+    justify-content: space-between;
+}
+.caja-prod h2{
+    font-family: "Ultra", serif;
+    font-size: 50px;
+}
+.caja-prod img{
+    width: 10px;
+}
+.banner-prod{
+    width: 100%;
+}
+.banner-prod img{
+    width: 100%;
+}
+.caja-prod{
+    display: flex;
+    flex-direction: column;
+}
+.section1{
+    width: 100%;
+}
+.caja-imagenes{
+    width: 100%;
+    display: flex;
+    gap: 50px;
+    align-items: center;
+}
+.caja-imagenes img{
+    width: 10%;
+}
+.caja-venta{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.prod1p{
+    width: 30%;
+    text-align: center;
+}
+.prod2p{
+    width: 30%;
+    text-align: center;
+    
+}
+.prod2p p{
+    margin-top: 18px;
+}
+
+.prod3p{
+    width: 30%;
+    text-align: center;
+}
+.prod3p p{
+    margin-top: 14px;
+}
+.caja-venta img{
+    width: 100%;
+}
+.precio{
+    color: green;
+    margin-bottom: 10px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+

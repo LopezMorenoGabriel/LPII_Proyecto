@@ -1,0 +1,90 @@
+<!-- templates/shared/sidebar.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+	<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar"
+		th:fragment="sliderbard">
+
+		<!-- Sidebar - Brand -->
+		<a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/dashboard}">
+			<div class="sidebar-brand-icon rotate-n-15">
+				<i class="fas fa-laugh-wink"></i>
+			</div>
+			<div class="sidebar-brand-text mx-3" th:text="${session.usuarioSesion.nombre}">Usuario</div>
+		</a>
+
+		<!-- Divider -->
+		<hr class="sidebar-divider my-0">
+
+		<!-- Nav Item - Dashboard -->
+		<li class="nav-item active">
+			<a class="nav-link" th:href="@{/dashboard}">
+				<i class="fas fa-fw fa-home"></i>
+				<span>Inicio</span>
+			</a>
+		</li>
+
+		<!-- Divider -->
+		<hr class="sidebar-divider">
+
+		<!-- Heading -->
+		<div class="sidebar-heading">Interface</div>
+
+		<!-- Nav Item - Mantenimiento Productos -->
+		<li class="nav-item">
+			<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+				aria-expanded="false" aria-controls="collapseTwo">
+				<i class="fas fa-box"></i>
+				<span>Producto</span>
+			</a>
+			<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionSidebar">
+				<div class="bg-white py-2 collapse-inner rounded">
+					<h6 class="collapse-header">Seleccionar</h6>
+					<a class="collapse-item" th:href="@{/crearProductos}">Agregar producto</a>
+					<a class="collapse-item" th:href="@{/filtradoProductos}">Lista</a>
+				</div>
+			</div>
+		</li>
+
+		<!-- Nav Item - Clientes -->
+		<li class="nav-item">
+			<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUtilities"
+				aria-expanded="false" aria-controls="collapseUtilities">
+				<i class="fas fa-user"></i>
+				<span>Clientes</span>
+			</a>
+			<div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+				data-bs-parent="#accordionSidebar">
+				<div class="bg-white py-2 collapse-inner rounded">
+					<a class="collapse-item" th:href="@{/listadoCliente}">Lista</a>
+				</div>
+			</div>
+		</li>
+
+		<!-- Nav Item - Clientes -->
+		<li class="nav-item">
+			<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseThree"
+				aria-expanded="false" aria-controls="collapseThree">
+				<i class="fas fa-calendar"></i>
+				<span>Citas</span>
+			</a>
+			<div id="collapseThree" class="collapse" aria-labelledby="headingUtilities"
+				data-bs-parent="#accordionSidebar">
+				<div class="bg-white py-2 collapse-inner rounded">
+					<a class="collapse-item" th:href="@{/filtradoCitas}">Listar</a>
+				</div>
+			</div>
+		</li>
+
+		<!-- Divider -->
+		<hr class="sidebar-divider d-none d-md-block">
+
+		<!-- Sidebar Toggler (Sidebar) -->
+		<div class="text-center d-none d-md-inline">
+			<button class="rounded-circle border-0" id="sidebarToggle"></button>
+		</div>
+	</ul>
+</body>
+
+</html>

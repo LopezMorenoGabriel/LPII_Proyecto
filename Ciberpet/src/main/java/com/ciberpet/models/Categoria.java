@@ -16,5 +16,5 @@ public class Categoria {
 	@Column(name = "idCategoria")
 	private int idCategoria;
 	@Column(name = "descrip_categoria")
-	private String descrip_categoria;
+	private String descripcion;
 }

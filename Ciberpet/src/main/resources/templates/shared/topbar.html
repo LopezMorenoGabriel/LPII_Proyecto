@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	
+<body>
+    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow" th:fragment="topbar">
+
+        <!-- Topbar Navbar -->
+        <ul class="navbar-nav ms-auto"> <!-- ms-auto en lugar de ml-auto (Bootstrap 5) -->
+
+            <!-- Nav Item - User Information -->
+            <li class="nav-item dropdown no-arrow">
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                   data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="me-2 d-none d-lg-inline text-gray-600 small"
+                          th:text="${session.usuarioSesion.correo}"></span>
+                    <img class="img-profile rounded-circle" th:src="@{/img/undraw_profile.svg}">
+                </a>
+
+                <!-- Dropdown - User Information -->
+                <ul class="dropdown-menu dropdown-menu-end shadow animated--grow-in"
+                    aria-labelledby="userDropdown">
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                        <a class="dropdown-item" th:href="@{/cerrar-sesion}">
+                            <i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>
+                            Salir
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+    </nav>
+</body>
+
+</html>

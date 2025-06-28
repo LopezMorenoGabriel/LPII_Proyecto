@@ -1,4 +1,4 @@
-package com.ciberpet.models;
+/*package com.ciberpet.models;
 
 import jakarta.persistence.Entity;
 import lombok.Getter;
@@ -14,3 +14,4 @@ public class DetalleCarrito {
     private double precioUnitario;
     private double importe;
 }
+*/

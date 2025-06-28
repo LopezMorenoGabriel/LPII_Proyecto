@@ -1,4 +1,4 @@
-package com.ciberpet.models;
+/*package com.ciberpet.models;
 
 import jakarta.persistence.Entity;
 import lombok.Getter;
@@ -13,3 +13,4 @@ public class DetCompra {
 	private int cantidad;
 	private double Total;
 }
+*/
