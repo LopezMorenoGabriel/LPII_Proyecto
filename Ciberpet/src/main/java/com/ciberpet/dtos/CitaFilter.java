@@ -7,4 +7,5 @@ import lombok.Setter;
 @Setter
 public class CitaFilter {
 	private Integer idServicio;
+	private String estado;
 }

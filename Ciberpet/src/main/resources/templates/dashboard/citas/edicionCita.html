@@ -22,11 +22,16 @@
 						</div>
 						<div class="col-md-6">
 							<label class="form-label">Fecha de la cita</label>
-							<input type="date" th:field="*{fechaCita}" class="form-control">
+							<input type="date" th:field="*{fechaCita}" class="form-control"
+								th:classappend="${#fields.hasErrors('fechaCita')} ? 'is-invalid' : ''">
+							<div class="invalid-feedback" th:errors="*{fechaCita}"></div>
+
 						</div>
 						<div class="col-md-6">
 							<label class="form-label">Hora de la cita</label>
-							<input type="time" th:field="*{horaCita}" class="form-control">
+							<input type="time" th:field="*{horaCita}" class="form-control"
+								th:classappend="${#fields.hasErrors('horaCita')} ? 'is-invalid' : ''">
+							<div class="invalid-feedback" th:errors="*{horaCita}"></div>
 						</div>
 					</div>
 
@@ -44,11 +49,23 @@
 
 						<div class="col-md-6">
 							<label class="form-label">Motivo</label>
-							<input type="text" th:field="*{motivo}" class="form-control" maxlength="100"
-								placeholder="Motivo de la cita">
+							<input type="text" th:field="*{motivo}" class="form-control"
+								th:classappend="${#fields.hasErrors('motivo')} ? 'is-invalid' : ''">>
+							<div class="invalid-feedback" th:errors="*{motivo}"></div>
 						</div>
 					</div>
-
+					<div class="col-md-4">
+						<label class="form-label">Estado</label>
+						<select class="form-select" th:field="*{estado}"
+							th:classappend="${#fields.hasErrors('estado')} ? 'is-invalid' : ''">
+							<option value="">-- Todos --</option>
+							<option th:value="P">Pendiente</option>
+							<option th:value="E">En espera</option>
+							<option th:value="C">Cancelada</option>
+							<option th:value="A">Atendida</option>
+						</select>
+						<div class="invalid-feedback" th:errors="*{estado}"></div>
+					</div>
 					<div class="d-flex justify-content-end">
 						<button type="submit" class="btn btn-success">
 							<i class="fas fa-save"></i> Guardar Cambios

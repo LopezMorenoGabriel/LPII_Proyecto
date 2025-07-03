@@ -9,17 +9,19 @@ import org.springframework.data.repository.query.Param;
 import com.ciberpet.models.Producto;
 
 public interface IProductoRepository extends JpaRepository<Producto, String> {
-	
+
 	List<Producto> findAllByOrderByIdProductoDesc();
-	
+
 	List<Producto> findByCategoriaDescripcion(String descripcion);
 
 	@Query("""
 			select p from Producto p
 			where
 				(:idCategoria is null or p.categoria.idCategoria = :idCategoria)
+				and
+				(:estado is null or p.estado = :estado)
 			order by
 				p.idProducto desc
 			""")
-	List<Producto> findAllWithFilters(@Param("idCategoria") Integer idCategoria);
+	List<Producto> findAllWithFilters(@Param("idCategoria") Integer idCategoria, @Param("estado") Boolean estado);
 }

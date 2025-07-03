@@ -20,6 +20,18 @@
 							</select>
 						</div>
 					</div>
+					<div class="row mb-3">
+						<div class="col-md-4">
+							<label class="form-label">Estado</label>
+							<select class="form-select" th:field="*{estado}" onchange="this.form.submit()">
+								<option value="">-- Todos --</option>
+								<option th:value="P">Pendiente</option>
+								<option th:value="E">En espera</option>
+								<option th:value="C">Cancelada</option>
+								<option th:value="A">Atendida</option>
+							</select>
+						</div>
+					</div>
 				</form>
 
 				<!-- Tabla de citas -->
@@ -33,6 +45,7 @@
 								<th>Fecha</th>
 								<th>Hora</th>
 								<th>Motivo</th>
+								<th>Estado</th>
 								<th>Acciones</th>
 							</tr>
 						</thead>
@@ -44,6 +57,7 @@
 								<td th:text="${cita.fechaCita}"></td>
 								<td th:text="${cita.horaCita}"></td>
 								<td th:text="${cita.motivo}"></td>
+								<td th:text="${cita.nombreEstado}"></td>
 								<td class="text-center">
 									<div class="d-flex justify-content-center gap-2">
 										<a th:href="@{/edicionCita/{id}(id=${cita.idCita})}"
@@ -52,9 +66,6 @@
 											class="btn btn-outline-danger btn-sm">Eliminar</a>
 									</div>
 								</td>
-							</tr>
-							<tr th:if="${#lists.isEmpty(lstCita)}">
-								<td colspan="7" class="text-center text-muted">No se encontraron citas.</td>
 							</tr>
 						</tbody>
 					</table>

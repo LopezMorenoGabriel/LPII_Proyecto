@@ -20,6 +20,14 @@
 									th:text="${c.descripcion}"></option>
 							</select>
 						</div>
+						<div class="col-auto">
+							<label for="estado">Estado:</label>
+							<select class="form-select" th:field="*{estado}">
+								<option value="">-- Todos --</option>
+								<option th:value="true">Activos</option>
+								<option th:value="false">Inactivos</option>
+							</select>
+						</div>
 						<div class="col-md-2 d-flex align-items-end">
 							<button type="submit" class="btn btn-primary w-100">
 								<i class="fas fa-filter"></i> Filtrar
@@ -39,6 +47,7 @@
 								<th>Stock</th>
 								<th>Precio</th>
 								<th>Acciones</th>
+								<th>Estado</th>
 							</tr>
 						</thead>
 						<tbody class="table-secondary">
@@ -50,28 +59,27 @@
 								<td th:text="${prod.stock}" class="text-end"></td>
 								<td th:text="|S/. ${#numbers.formatDecimal(prod.precio,1,2,'POINT')}|" class="text-end">
 								</td>
-								<td class="text-center">
-									<div class="d-flex justify-content-center gap-2">
+								<td class="d-flex justify-content-center gap-2">
 										<a th:href="@{/edicionProducto/{id}(id=${prod.idProducto})}"
 											class="btn btn-outline-primary btn-sm px-2" title="Editar">
 											<i class="fa-regular fa-pen-to-square"></i> Editar
 										</a>
-
-										<a th:href="@{/eliminarProducto/{id}(id=${prod.idProducto})}"
-											class="btn btn-outline-danger btn-sm px-2" title="Eliminar">
-											<i class="fa-regular fa-trash-can"></i> Eliminar
-										</a>
-
-									</div>
 								</td>
-
+								<td class="text-center">
+									<form method="post" th:action="@{/cambiar-estado/{id}(id=${prod.idProducto})}">
+										<div class="form-switch">
+											<input class="form-check-input" type="checkbox" th:checked="${prod.estado}"
+												onchange="this.form.submit()">
+										</div>
+									</form>
+								</td>
 
 							</tr>
 						</tbody>
 					</table>
 				</div>
 
-				
+
 				<th:block th:utext="${toast}"></th:block>
 			</div>
 		</div>

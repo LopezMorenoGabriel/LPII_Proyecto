@@ -17,8 +17,10 @@ public interface ICitaRepository extends JpaRepository<Cita, Integer> {
 			select c from Cita c
 			where
 				(:idServicio is null or c.servicio.idServicio = :idServicio)
+				and
+				(:estado = '' OR :estado IS NULL OR c.estado = :estado)
 			order by
 				c.idCita desc
 			""")
-	List<Cita> findAllWithFilters(@Param("idServicio") Integer idServicio);
+	List<Cita> findAllWithFilters(@Param("idServicio") Integer idServicio,@Param("estado") String estado);
 }

@@ -49,8 +49,7 @@ public class Cita {
     @ManyToOne
     @JoinColumn(name = "idUsuario")
     private Usuario usuario;
-
-    
+   
     @ManyToOne
     @JoinColumn(name = "idServicio")
     @NotNull(message = "Debe seleccionar un servicio")
@@ -60,4 +59,25 @@ public class Cita {
     @Size(max = 100, message = "El motivo no puede tener más de 100 caracteres")
     @Column(name = "Motivo")
     private String motivo;
+    
+    @Column(name = "estado")
+    @NotBlank(message = "Debe ingresar el estado de la cita")
+    @NotNull(message = "Debe seleccionar un servicio")
+    private String estado;
+    
+    public String getNombreEstado() {
+        switch (estado) {
+            case "P":
+                return "Pendiente";
+            case "E":
+                return "En espera";
+            case "C":
+                return "Cancelada";
+            case "A":
+                return "Atendida";
+            default:
+                return "Desconocido";
+        }
+    }
+
 }

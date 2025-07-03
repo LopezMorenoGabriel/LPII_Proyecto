@@ -21,7 +21,7 @@ public class ProductoService {
 	}
 	
 	public List<Producto> search(ProductoFilter filtro) {
-		return _productoRepository.findAllWithFilters(filtro.getIdCategoria());
+		return _productoRepository.findAllWithFilters(filtro.getIdCategoria(), filtro.getEstado());
 	}
 
 	public Producto getOne(String id) {
@@ -47,6 +47,9 @@ public class ProductoService {
 	
 	public ResultadoResponse update(Producto producto) {
 		try {
+			if (producto.getStock() == 0) {
+				producto.setEstado(false);
+			}
 			Producto registrado = _productoRepository.save(producto);
 
 			String mensaje = String.format("Producto con código %s actualizado", registrado.getIdProducto());
@@ -58,19 +61,23 @@ public class ProductoService {
 		}
 	}
 	
-	public ResultadoResponse delete(String idProducto) {
-	    try {
-	        if (_productoRepository.existsById(idProducto)) {
-	            _productoRepository.deleteById(idProducto);
-	            String mensaje = String.format("Producto con código %s eliminado correctamente", idProducto);
-	            return new ResultadoResponse(true, mensaje);
-	        } else {
-	            return new ResultadoResponse(false, "El producto no existe en la base de datos.");
-	        }
-	    } catch (Exception ex) {
-	        ex.printStackTrace();
-	        return new ResultadoResponse(false, "Error al eliminar: " + ex.getMessage());
-	    }
+	public ResultadoResponse cambiarEstado(String id) {
+
+		Producto producto = this.getOne(id);
+		String accion = producto.getEstado() ? "desactivado" : "activado";
+
+		producto.setEstado(!producto.getEstado());
+
+		try {
+			Producto registrado = _productoRepository.save(producto);
+
+			String mensaje = String.format("Producto con código %s %s", registrado.getIdProducto(), accion);
+			return new ResultadoResponse(true, mensaje);
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return new ResultadoResponse(false, "Error al cambiar de estado: " + ex.getMessage());
+		}
 	}
 
 }

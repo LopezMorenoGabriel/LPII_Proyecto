@@ -58,4 +58,8 @@ public class Producto {
     @JoinColumn(name = "idCategoria", nullable = false)
     @NotNull(message = "Debe seleccionar una categoría")
     private Categoria categoria;
+    
+    @Column(name = "estado", nullable = false)
+    private Boolean estado;
+
 }

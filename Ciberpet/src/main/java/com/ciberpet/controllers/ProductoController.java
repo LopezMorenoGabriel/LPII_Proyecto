@@ -52,8 +52,11 @@ public class ProductoController {
 	
 	@GetMapping("/crearProductos")
 	public String crearProductos(Model model) {
+		Producto producto = new Producto();
+		producto.setEstado(true);
 		model.addAttribute("categorias", categoriaService.getAll());
-		model.addAttribute("producto", new Producto());
+		model.addAttribute("producto", producto);
+		
 		return "dashboard/productos/crearProductos";
 	}
 	
@@ -113,29 +116,14 @@ public class ProductoController {
 		return "redirect:/filtradoProductos";
 	}
 	
-	@GetMapping("/eliminarProducto/{id}")
-	public String eliminarProducto(@PathVariable String id, RedirectAttributes flash, Model model) {
-		Producto producto = productoService.getOne(id);
+	@PostMapping("/cambiar-estado/{id}")
+	public String cambiarEstado(@PathVariable String id, RedirectAttributes flash) {
 
-	    if (producto == null) {
-	        String toast = Alert.sweetToast("Producto no encontrado", "error", 5000);
-	        model.addAttribute("toast", toast);
-	        return "redirect:/filtradoProductos";
-	    }
-
-	    model.addAttribute("producto", producto);
-	    return "dashboard/productos/eliminarProducto"; 
-	}
-	
-	@PostMapping("/eliminarProducto")
-	public String confirmarEliminarProd(@RequestParam("idProducto") String id, RedirectAttributes flash) {
-	    ResultadoResponse response = productoService.delete(id);
-
-	    String toastType = response.success ? "success" : "error";
-	    String toast = Alert.sweetToast(response.mensaje, toastType, 5000);
-	    flash.addFlashAttribute("toast", toast);
-
-	    return "redirect:/filtradoProductos";
+		ResultadoResponse response = productoService.cambiarEstado(id);
+		
+		String toast = Alert.sweetToast(response.mensaje, "success", 5000);
+		flash.addFlashAttribute("toast", toast);
+		return "redirect:/filtradoProductos";
 	}
 
 	

@@ -76,11 +76,9 @@ public class CitaController {
 	@GetMapping("/filtradoCitas")
 	public String filtradoCitas(@ModelAttribute CitaFilter filtro, Model model) {
 		List<Cita> lstCita = citaService.search(filtro);
-
 		model.addAttribute("servicios", servicioService.getAll());
 		model.addAttribute("filtro", filtro);
 		model.addAttribute("lstCita", lstCita);
-		
 		return "dashboard/citas/filtradoCitas";
 	}
 
@@ -100,6 +98,8 @@ public class CitaController {
 
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("servicios", servicioService.getAll());
+			Usuario cliente = clienteService.getOne(cita.getUsuario().getIdUser());
+			cita.setUsuario(cliente);
 			model.addAttribute("alert", Alert.sweetAlertInfo("Falta completar información"));
 			return "dashboard/citas/edicionCita";
 		}

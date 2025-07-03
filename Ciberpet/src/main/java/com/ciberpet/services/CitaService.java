@@ -17,7 +17,7 @@ public class CitaService {
 	private ICitaRepository _citaRepository;
 	
 	public List<Cita> search(CitaFilter filtro) {
-		return _citaRepository.findAllWithFilters(filtro.getIdServicio());
+		return _citaRepository.findAllWithFilters(filtro.getIdServicio(),filtro.getEstado());
 	}
 	
 	public Cita getOne(int id) {
