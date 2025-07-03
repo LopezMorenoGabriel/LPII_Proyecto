@@ -39,20 +39,21 @@ public class Cita {
     @FutureOrPresent(message = "La fecha de la cita no puede ser anterior a hoy")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "fecha_cita")
-    private LocalDate fecha_cita;
+    private LocalDate fechaCita;
 
     @NotBlank(message = "La hora de la cita es obligatoria")
     @Column(name = "hora_cita")
-    private String hora_cita;
+    private String horaCita;
 
     @NotNull(message = "Debe seleccionar un usuario")
     @ManyToOne
     @JoinColumn(name = "idUsuario")
     private Usuario usuario;
 
-    @NotNull(message = "Debe seleccionar un servicio")
+    
     @ManyToOne
     @JoinColumn(name = "idServicio")
+    @NotNull(message = "Debe seleccionar un servicio")
     private Servicio servicio;
 
     @NotBlank(message = "Debe ingresar el motivo de la cita")

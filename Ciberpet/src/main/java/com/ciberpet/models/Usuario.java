@@ -30,7 +30,7 @@ public class Usuario {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idUsuario")
-    private int idUsuario;
+    private int idUser;
 
     @Column(name = "nombre", nullable = false, length = 60)
     @NotBlank(message = "El nombre es obligatorio")

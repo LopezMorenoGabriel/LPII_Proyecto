@@ -10,7 +10,7 @@ public interface IUsuarioRepository extends JpaRepository<Usuario, Integer>{
 	
 	Usuario findByCorreoAndContrasena(String correo, String contrasena);
 	
-	List<Usuario> findAllByOrderByIdUsuarioDesc();
+	List<Usuario> findAllByOrderByIdUserDesc();
 	
 	List<Usuario> findByTipo_IdTipo(int idTipo);
 

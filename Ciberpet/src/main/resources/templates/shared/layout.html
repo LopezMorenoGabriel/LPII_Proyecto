@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:fragment="layoutPagina(contenido)">
+
+<head>
+	<title>CiberPet</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link th:href="@{css/sb-admin-2.min.css}" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+	<link rel="stylesheet" th:href="@{cssFront/animate.css}">
+	<link rel="stylesheet" th:href="@{cssFront/owl.carousel.min.css}">
+	<link rel="stylesheet" th:href="@{cssFront/owl.theme.default.css}">
+
+	<link rel="stylesheet" th:href="@{cssFront/carrusel.css}">
+	<link rel="stylesheet" th:href="@{cssFront/tarjetas.css}">
+	<link rel="stylesheet" th:href="@{cssFront/carruselServicios.css}">
+	<link rel="stylesheet" th:href="@{/cssFront/sobrenosotros.css}">
+	<link th:href="@{cssFront/estilos.css}" rel="stylesheet">
+	<link th:href="@{cssFront/botones.css}" rel="stylesheet">
+	
+	<link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css}" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+	<!--Header-->
+	<div th:replace="~{shared/header :: encabezado}"></div>
+	<main class="container-fluid">
+		<div th:replace="${contenido}">[Contenido aquí]</div>
+	</main>
+	<!--Footer-->
+	<div th:replace="~{shared/footer :: piepagina}"></div>
+</body>
+
+</html>

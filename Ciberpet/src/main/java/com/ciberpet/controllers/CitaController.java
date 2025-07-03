@@ -26,6 +26,7 @@ import jakarta.validation.Valid;
 
 @Controller
 public class CitaController {
+	
 	@Autowired
 	private ServicioService servicioService;
 
@@ -53,7 +54,7 @@ public class CitaController {
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("servicios", servicioService.getAll());
 			model.addAttribute("alert", Alert.sweetAlertInfo("Falta completar información"));
-			Usuario cliente = clienteService.getOne(cita.getUsuario().getIdUsuario());
+			Usuario cliente = clienteService.getOne(cita.getUsuario().getIdUser());
 			cita.setUsuario(cliente);
 			model.addAttribute("cita", cita);
 			return "dashboard/citas/nuevaCita";

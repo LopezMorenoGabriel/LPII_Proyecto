@@ -42,7 +42,7 @@ public class AccesoController {
 	        return "acceso/login";
 	    }
 
-	    session.setAttribute("idUsuario", usuarioValidado.getIdUsuario());
+	    session.setAttribute("idUsuario", usuarioValidado.getIdUser());
 	    session.setAttribute("nombreCompleto", usuarioValidado.getNombre() + " " + usuarioValidado.getApellidos());
 	    session.setAttribute("cuenta", usuarioValidado.getCorreo());
 	    session.setAttribute("rol", usuarioValidado.getTipo().getDescripcion());

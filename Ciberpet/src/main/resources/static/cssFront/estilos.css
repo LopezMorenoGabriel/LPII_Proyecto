@@ -193,6 +193,11 @@ main{
     height: 550px;
     border-radius: 40px;
 }
+
+#icono-pet{
+	width: 20px;
+}
+
 .servicios img{
     width: 50%;
 }
