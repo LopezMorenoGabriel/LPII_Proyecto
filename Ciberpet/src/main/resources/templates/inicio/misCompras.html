@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="shared/layout :: layoutPagina(~{::contenido})">
+
+<div th:fragment="contenido">
+    <div class="container mt-4">
+        <h4 class="mb-4">Mis Compras</h4>
+
+        <div class="accordion" id="accordionCompras">
+            <div th:each="compra, iterStat : ${compras}" class="accordion-item mb-3">
+                <h2 class="accordion-header" th:attr="id='heading' + ${iterStat.index}">
+                    <button class="accordion-button collapsed" type="button" 
+                            data-bs-toggle="collapse"
+                            th:attr="data-bs-target='#collapse' + ${iterStat.index}"
+                            aria-expanded="false"
+                            th:attrappend="aria-controls='collapse' + ${iterStat.index}">
+                        <strong>Boleta #</strong><span th:text="${compra.idBoleta}" class="ms-2 me-4"></span>
+                        | <strong>Fecha:</strong> <span th:text="${compra.fechaBoleta}" class="mx-2"></span>
+                        | <strong>Total:</strong> S/ <span th:text="${#numbers.formatDecimal(compra.total, 1, 2)}" class="mx-2"></span>
+                    </button>
+                </h2>
+
+                <div th:attr="id='collapse' + ${iterStat.index}" 
+                     th:attrappend="aria-labelledby='heading' + ${iterStat.index}" 
+                     class="accordion-collapse collapse" 
+                     data-bs-parent="#accordionCompras">
+                    <div class="accordion-body">
+                        <h6 class="mb-3">Productos comprados:</h6>
+                        <table class="table table-sm table-hover align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Cantidad</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="detalle : ${compra.detalles}">
+                                    <td th:text="${detalle.producto.nombreProducto}">Nombre</td>
+                                    <td th:text="${detalle.cantidad}">1</td>
+                                    <td>S/ <span th:text="${#numbers.formatDecimal(detalle.total, 1, 2)}"></span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</html>

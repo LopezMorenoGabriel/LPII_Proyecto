@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.ciberpet.models.CarritoItem;
+import com.ciberpet.models.Compra;
+import com.ciberpet.models.Usuario;
 import com.ciberpet.services.CompraService;
 
 import jakarta.servlet.http.HttpSession;
@@ -21,6 +23,20 @@ public class CompraController {
 
     @Autowired
     private CompraService compraService;
+    
+    @GetMapping("/misCompras")
+    public String verMisCompras(HttpSession session, Model model) {
+        Usuario usuario = (Usuario) session.getAttribute("usuarioSesion");
+
+        if (usuario == null) {
+            return "redirect:/login";
+        }
+
+        List<Compra> compras = compraService.listarComprasPorCliente(usuario.getIdUser());
+        model.addAttribute("compras", compras);
+        return "inicio/misCompras";
+    }
+
     
     @PostMapping("/finalizar-compra")
     public String finalizarCompra(HttpSession session) {

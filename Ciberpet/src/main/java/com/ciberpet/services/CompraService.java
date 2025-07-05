@@ -37,6 +37,11 @@ public class CompraService {
 
     @Autowired
     private ProductoService productoService;
+    
+    public List<Compra> listarComprasPorCliente(int idUsuario) {
+        return compraRepository.findByUsuarioIdUser(idUsuario);
+    }
+    
 
     public void procesarCompra(List<CarritoItem> carrito, Usuario usuario) {
         Compra compra = new Compra();
