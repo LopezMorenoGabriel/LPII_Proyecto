@@ -3,9 +3,13 @@
 
 <div th:fragment="contenido">
 	<!-- BANNER -->
-	<div class="banner-prod text-center mb-4 container-fluid">
-		<img class="img-fluid" th:src="@{/imgFront/banner-prod.png}" alt="" >
+	<div class="banner-prod position-relative text-white mb-4">
+		<img class="img-fluid w-100 h-50" th:src="@{/imgFront/productosa.jpg}" alt="Banner productos">
+		<div class="position-absolute top-50 start-0 translate-middle-y ps-5">
+			<h1 class="display-4 fw-bold">Productos</h1>
+		</div>
 	</div>
+
 
 	<!-- CONTENIDO -->
 	<main class="container">

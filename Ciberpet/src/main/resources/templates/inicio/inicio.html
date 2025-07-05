@@ -1,8 +1,18 @@
 <!DOCTYPE HTML>
+<link rel="stylesheet" th:href="@{cssFront/animate.css}">
+<link rel="stylesheet" th:href="@{cssFront/owl.carousel.min.css}">
+<link rel="stylesheet" th:href="@{cssFront/owl.theme.default.css}">
+
+<link rel="stylesheet" th:href="@{cssFront/carrusel.css}">
+<link rel="stylesheet" th:href="@{cssFront/tarjetas.css}">
+<link rel="stylesheet" th:href="@{cssFront/carruselServicios.css}">
+<link rel="stylesheet" th:href="@{/cssFront/sobrenosotros.css}">
+<link th:href="@{cssFront/estilos.css}" rel="stylesheet">
+<link th:href="@{cssFront/botones.css}" rel="stylesheet">
 <html xmlns:th="http://www.thymeleaf.org" th:replace="shared/layout :: layoutPagina(~{::contenido})">
 
 <div th:fragment="contenido">
-	<main>
+	<main class="heroInicio">
 		<div class="caja-principal">
 			<div class="wow animate__fadeInDown">
 				<h1>
@@ -10,8 +20,8 @@
 					<br> <br> Reserva o compra en linea
 				</h1>
 			</div>
-			<a href="cita" class="btn-reservar" role="button">Reservar</a>
-			<a href="Carrito.jsp" class="btn-comprar" role="button">Comprar</a>
+			<a th:href="@{/reservarCitaCliente}" class="btn-reservar" role="button">Reservar</a>
+			<a th:href="@{/carrito}" class="btn-comprar" role="button">Comprar</a>
 		</div>
 		<img class="wow animate__bounceInRight" src="imgFront/imgInicio.png" alt="">
 	</main>
@@ -29,7 +39,7 @@
 			seguridad garantizadas
 		</div>
 		<div class="box">
-			<img th:src="@{imgFront/iconos/icon-pago.png}" alt="">Pagos contraentrega
+			<img class="imghero" th:src="@{imgFront/iconos/icon-pago.png}" alt="">Pagos contraentrega
 		</div>
 	</main>
 	<div id="main2">

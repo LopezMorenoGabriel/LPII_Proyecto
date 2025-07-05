@@ -34,6 +34,12 @@ public class ProductoService {
 	
 	public ResultadoResponse create(Producto producto) {
 		try {
+			
+	        if (_productoRepository.existsById(producto.getIdProducto())) {
+	            String mensaje = String.format("El producto con código %s ya existe", producto.getIdProducto());
+	            return new ResultadoResponse(false, mensaje);
+	        }
+			
 			Producto registrado = _productoRepository.save(producto);
 
 			String mensaje = String.format("Producto con código %s registrado", registrado.getIdProducto());

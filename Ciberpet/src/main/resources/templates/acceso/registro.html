@@ -60,9 +60,6 @@
                                         <input type="password" th:field="*{contrasena}" class="form-control form-control-user" placeholder="Contraseña">
                                         <div class="text-danger" th:if="${#fields.hasErrors('contrasena')}" th:errors="*{contrasena}"></div>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <input type="password" class="form-control form-control-user" placeholder="Repetir Contraseña" name="contrasenaRepetir">
-                                    </div>
                                 </div>
 
                                 <div class="mb-3 d-flex justify-content-center">

@@ -12,6 +12,7 @@ import com.ciberpet.models.Cita;
 @Repository
 public interface ICitaRepository extends JpaRepository<Cita, Integer> {
 	List<Cita> findAllByOrderByIdCitaDesc();
+	List<Cita> findByUsuario_IdUserOrderByFechaCitaDesc(int idUsuario);
 
 	@Query("""
 			select c from Cita c

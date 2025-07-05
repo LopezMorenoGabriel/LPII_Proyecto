@@ -22,29 +22,30 @@ import com.ciberpet.services.ClienteService;
 import com.ciberpet.services.ServicioService;
 import com.ciberpet.utils.Alert;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
 public class CitaController {
-	
+
 	@Autowired
 	private ServicioService servicioService;
 
 	@Autowired
 	private CitaService citaService;
-	
+
 	@Autowired
 	private ClienteService clienteService;
 
 	@GetMapping("/nuevaCita/{idUsuario}")
 	public String nuevaCitaDesdeCliente(@PathVariable int idUsuario, Model model) {
-	    Cita cita = new Cita();
-	    Usuario cliente = clienteService.getOne(idUsuario);
-	    cita.setUsuario(cliente);
+		Cita cita = new Cita();
+		Usuario cliente = clienteService.getOne(idUsuario);
+		cita.setUsuario(cliente);
 
-	    model.addAttribute("cita", cita);
-	    model.addAttribute("servicios", servicioService.getAll());
-	    return "dashboard/citas/nuevaCita";
+		model.addAttribute("cita", cita);
+		model.addAttribute("servicios", servicioService.getAll());
+		return "dashboard/citas/nuevaCita";
 	}
 
 	@PostMapping("/citas/registrarCita")
@@ -84,11 +85,11 @@ public class CitaController {
 
 	@GetMapping("/edicionCita/{id}")
 	public String edicionCita(@PathVariable int id, Model model) {
-		
+
 		model.addAttribute("servicios", servicioService.getAll());
 		Cita cita = citaService.getOne(id);
 		model.addAttribute("cita", cita);
-		
+
 		return "dashboard/citas/edicionCita";
 	}
 
@@ -105,7 +106,7 @@ public class CitaController {
 		}
 
 		ResultadoResponse response = citaService.update(cita);
-		
+
 		if (!response.success) {
 			model.addAttribute("servicios", servicioService.getAll());
 			model.addAttribute("alert", Alert.sweetAlertError(response.mensaje));
@@ -116,29 +117,92 @@ public class CitaController {
 
 		return "redirect:/filtradoCitas";
 	}
-	
+
 	@GetMapping("/eliminarCita/{id}")
 	public String eliminarCita(@PathVariable int id, RedirectAttributes flash, Model model) {
 		Cita cita = citaService.getOne(id);
 
-	    if (cita == null) {
-	        String toast = Alert.sweetToast("Cita no encontrado", "error", 5000);
-	        model.addAttribute("toast", toast);
-	        return "redirect:/filtradoCitas";
-	    }
+		if (cita == null) {
+			String toast = Alert.sweetToast("Cita no encontrado", "error", 5000);
+			model.addAttribute("toast", toast);
+			return "redirect:/filtradoCitas";
+		}
 
-	    model.addAttribute("cita", cita);
-	    return "dashboard/citas/eliminarCita"; 
+		model.addAttribute("cita", cita);
+		return "dashboard/citas/eliminarCita";
 	}
-	
+
 	@PostMapping("/eliminarCita")
 	public String confirmarEliminarCita(@RequestParam("idCita") int id, RedirectAttributes flash) {
-	    ResultadoResponse response = citaService.delete(id);
+		ResultadoResponse response = citaService.delete(id);
 
-	    String toast = Alert.sweetToast(response.mensaje, "success", 5000);
+		String toast = Alert.sweetToast(response.mensaje, "success", 5000);
 		flash.addFlashAttribute("toast", toast);
 
-	    return "redirect:/filtradoCitas";
+		return "redirect:/filtradoCitas";
 	}
 
+	// Cita - Cliente
+
+	@GetMapping("/reservarCitaCliente")
+    public String reservarCitaCliente(HttpSession session, Model model) {
+        Usuario usuario = (Usuario) session.getAttribute("usuarioSesion");
+
+        if (usuario == null) {
+            return "redirect:/login";
+        }
+
+        Cita cita = new Cita();
+        cita.setUsuario(usuario);
+        cita.setEstado("P");
+
+        model.addAttribute("cita", cita);
+        model.addAttribute("servicios", servicioService.getAll());
+        return "inicio/reservarCita";
+    }
+
+	@PostMapping("/guardarCitaCliente")
+	public String registrarCitaCliente(@Valid @ModelAttribute Cita cita, BindingResult bindingResult,
+			HttpSession session, Model model, RedirectAttributes flash) {
+		Usuario usuario = (Usuario) session.getAttribute("usuarioSesion");
+
+		if (usuario == null) {
+			return "redirect:/login";
+		}
+
+		cita.setUsuario(usuario);
+		cita.setEstado("P");
+
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("cita", cita);
+			model.addAttribute("servicios", servicioService.getAll());
+			model.addAttribute("alert", Alert.sweetAlertInfo("Falta completar información"));
+			return "inicio/reservarCita";
+		}
+
+		ResultadoResponse response = citaService.create(cita);
+
+		if (!response.success) {
+			model.addAttribute("cita", cita);
+			model.addAttribute("servicios", servicioService.getAll());
+			model.addAttribute("alert", Alert.sweetAlertError(response.mensaje));
+			return "inicio/reservarCita";
+		}
+
+		flash.addFlashAttribute("toast", Alert.sweetToast("Cita reservada correctamente", "success", 5000));
+		return "redirect:inicio/misCitas";
+	}
+
+	@GetMapping("/misCitas")
+	public String verMisCitasCliente(HttpSession session, Model model) {
+		Usuario usuario = (Usuario) session.getAttribute("usuarioSesion");
+
+		if (usuario == null) {
+			return "redirect:/login";
+		}
+
+		List<Cita> citas = citaService.listarCitasDeCliente(usuario.getIdUser());
+		model.addAttribute("citas", citas);
+		return "inicio/misCitas";
+	}
 }

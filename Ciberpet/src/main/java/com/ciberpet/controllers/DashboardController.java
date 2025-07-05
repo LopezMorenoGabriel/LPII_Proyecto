@@ -10,7 +10,7 @@ public class DashboardController {
 
     @GetMapping("/dashboard")
     public String dashboard(HttpSession session, Model model) {
-        // Validar sesión
+        
         Object usuarioSesion = session.getAttribute("usuarioSesion");
         String rol = (String) session.getAttribute("rol");
 
