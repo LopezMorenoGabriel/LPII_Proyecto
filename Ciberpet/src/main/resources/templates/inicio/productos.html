@@ -1,86 +1,130 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="shared/layout :: layoutPagina(~{::contenido})">
+<th:block th:replace="~{layout :: plantilla(titulo='| Nuestros Productos', contenido=~{::contenido-principal})}">
 
-<div th:fragment="contenido">
-	<!-- BANNER -->
-	<div class="banner-prod position-relative text-white mb-4">
-		<img class="img-fluid w-100 h-50" th:src="@{/imgFront/productosa.jpg}" alt="Banner productos">
-		<div class="position-absolute top-50 start-0 translate-middle-y ps-5">
-			<h1 class="display-4 fw-bold">Productos</h1>
+	<th:block th:fragment="contenido-principal">
+
+<!--		<section class="py-5 text-center container">
+			<div class="row py-lg-5">
+				<div class="col-lg-6 col-md-8 mx-auto">
+					<h1 class="fw-light">Nuestros Productos</h1>
+					<p class="lead text-muted">Todo lo que necesitas para el bienestar, nutrición y felicidad de tu mascota. Explora nuestro catálogo de productos de alta calidad seleccionados por nuestros expertos.</p>
+				</div>
+			</div>
+		</section>-->
+
+		<div class="album py-3 bg-light">
+			<div class="container">
+
+				<ul class="nav nav-pills justify-content-center mb-4" id="pills-tab" role="tablist">
+					<li class="nav-item" role="presentation">
+						<button class="nav-link active" id="pills-perros-tab" data-bs-toggle="pill" data-bs-target="#pills-perros" type="button" role="tab" aria-controls="pills-perros" aria-selected="true">
+							<i class="fas fa-dog me-2"></i>Para Perros
+						</button>
+					</li>
+					<li class="nav-item" role="presentation">
+						<button class="nav-link" id="pills-gatos-tab" data-bs-toggle="pill" data-bs-target="#pills-gatos" type="button" role="tab" aria-controls="pills-gatos" aria-selected="false">
+							<i class="fas fa-cat me-2"></i>Para Gatos
+						</button>
+					</li>
+					<li class="nav-item" role="presentation">
+						<button class="nav-link" id="pills-accesorios-tab" data-bs-toggle="pill" data-bs-target="#pills-accesorios" type="button" role="tab" aria-controls="pills-accesorios" aria-selected="false">
+							<i class="fas fa-bone me-2"></i>Accesorios
+						</button>
+					</li>
+				</ul>
+
+				<div class="tab-content" id="pills-tabContent">
+
+					<div class="tab-pane fade show active" id="pills-perros" role="tabpanel" aria-labelledby="pills-perros-tab" tabindex="0">
+						<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
+							<div class="col" th:each="p : ${lstPerros}">
+								<div class="card shadow-sm h-100">
+									<img th:src="@{'/imgFront/perros/' + ${p.idProducto} + '.jpg'}" class="card-img-top p-3" alt="Imagen de producto" style="height: 225px; object-fit: contain;">
+									<div class="card-body d-flex flex-column">
+										<h5 class="card-title" th:text="${p.nombreProducto}"></h5>
+										<p class="card-text fw-bold text-success fs-5" th:text="|S/. ${#numbers.formatDecimal(p.precio,1,2,'POINT')}|"></p>
+										<div class="mt-auto">
+											<a th:href="@{'/mostrarProducto?codigo=' + ${p.idProducto}}" class="btn btn-sm btn-outline-success w-100">
+												<i class="fas fa-cart-plus me-2"></i>Añadir al carro
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="tab-pane fade" id="pills-gatos" role="tabpanel" aria-labelledby="pills-gatos-tab" tabindex="0">
+						<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
+							<div class="col" th:each="p : ${lstGatos}">
+								<div class="card shadow-sm h-100">
+									<img th:src="@{'/imgFront/gatos/' + ${p.idProducto} + '.jpg'}" class="card-img-top p-3" alt="Imagen de producto" style="height: 225px; object-fit: contain;">
+									<div class="card-body d-flex flex-column">
+										<h5 class="card-title" th:text="${p.nombreProducto}"></h5>
+										<p class="card-text fw-bold text-success fs-5" th:text="|S/. ${#numbers.formatDecimal(p.precio,1,2,'POINT')}|"></p>
+										<div class="mt-auto">
+											<a th:href="@{'/mostrarProducto?codigo=' + ${p.idProducto}}" class="btn btn-sm btn-outline-success w-100">
+												<i class="fas fa-cart-plus me-2"></i>Añadir al carro
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="tab-pane fade" id="pills-accesorios" role="tabpanel" aria-labelledby="pills-accesorios-tab" tabindex="0">
+						<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
+							<div class="col" th:each="p : ${lstAccesorios}">
+								<div class="card shadow-sm h-100">
+									<img th:src="@{'/imgFront/accesorio/' + ${p.idProducto} + '.jpg'}" class="card-img-top p-3" alt="Imagen de producto" style="height: 225px; object-fit: contain;">
+									<div class="card-body d-flex flex-column">
+										<h5 class="card-title" th:text="${p.nombreProducto}"></h5>
+										<p class="card-text fw-bold text-success fs-5" th:text="|S/. ${#numbers.formatDecimal(p.precio,1,2,'POINT')}|"></p>
+										<div class="mt-auto">
+											<a th:href="@{'/mostrarProducto?codigo=' + ${p.idProducto}}" class="btn btn-sm btn-outline-success w-100">
+												<i class="fas fa-cart-plus me-2"></i>Añadir al carro
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
 		</div>
-	</div>
 
-
-	<!-- CONTENIDO -->
-	<main class="container">
-
-		<!-- SECCIÓN PERROS -->
-		<section class="mb-5">
-			<div class="item" th:each="p : ${lstPerros}">
-				<div class="card text-center border-0 shadow-sm mx-auto" style="width: 220px;">
-					<img th:src="@{'/imgFront/perros/' + ${p.idProducto} + '.jpg'}" class="card-img-top p-2"
-						alt="Imagen" style="height: 160px; object-fit: contain;">
-					<div class="card-body p-2">
-						<h6 class="card-title text-truncate" th:text="${p.nombreProducto}" style="max-width: 200px;">
-						</h6>
-						<p class="fw-bold text-primary mb-2"
-							th:text="|S/. ${#numbers.formatDecimal(p.precio,1,2,'POINT')}|"></p>
-						<a class="btn btn-sm btn-primary d-flex align-items-center justify-content-center gap-1"
-							th:href="@{'/mostrarProducto?codigo=' + ${p.idProducto}}">
-							<img th:src="@{/imgFront/productos/carrodecompra.png}" style="width: 16px;" alt="">
-							Añadir al carro
-						</a>
+		<section class="container my-5">
+			<div class="text-center mb-4">
+				<h2 class="fw-bold">Guía Rápida para Elegir lo Mejor</h2>
+				<p class="text-muted">Elegir el producto perfecto es clave. Aquí tienes unos consejos:</p>
+			</div>
+			<div class="row g-4 text-center">
+				<div class="col-md-4">
+					<div class="p-4 bg-light rounded-3 h-100">
+						<i class="fas fa-birthday-cake fa-2x text-info mb-3"></i>
+						<h5 class="fw-bold">Considera su Etapa de Vida</h5>
+						<p class="text-muted small">Las necesidades de un cachorro o gatito son muy diferentes a las de una mascota adulta o senior. Elige fórmulas específicas para su edad.</p>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="p-4 bg-light rounded-3 h-100">
+						<i class="fas fa-ruler-combined fa-2x text-info mb-3"></i>
+						<h5 class="fw-bold">El Tamaño y la Raza Importan</h5>
+						<p class="text-muted small">Un alimento para un perro de raza pequeña tiene una croqueta y nutrientes distintos a uno para raza grande. ¡Elige el adecuado!</p>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="p-4 bg-light rounded-3 h-100">
+						<i class="fas fa-heartbeat fa-2x text-info mb-3"></i>
+						<h5 class="fw-bold">Atiende a sus Necesidades</h5>
+						<p class="text-muted small">Si tu mascota tiene alergias, sensibilidad digestiva o necesita control de peso, busca productos especializados. ¡Consúltanos si tienes dudas!</p>
 					</div>
 				</div>
 			</div>
-
 		</section>
+		
+	</th:block>
 
-		<!-- SECCIÓN GATOS -->
-		<section class="mb-5">
-			<div class="item" th:each="p : ${lstGatos}">
-				<div class="card text-center border-0 shadow-sm mx-auto" style="width: 220px;">
-					<img th:src="@{'/imgFront/gatos/' + ${p.idProducto} + '.jpg'}" class="card-img-top p-2" alt="Imagen"
-						style="height: 160px; object-fit: contain;">
-					<div class="card-body p-2">
-						<h6 class="card-title text-truncate" th:text="${p.nombreProducto}" style="max-width: 200px;">
-						</h6>
-						<p class="fw-bold text-primary mb-2"
-							th:text="|S/. ${#numbers.formatDecimal(p.precio,1,2,'POINT')}|"></p>
-						<a class="btn btn-sm btn-primary d-flex align-items-center justify-content-center gap-1"
-							th:href="@{'/mostrarProducto?codigo=' + ${p.idProducto}}">
-							<img th:src="@{/imgFront/productos/carrodecompra.png}" style="width: 16px;" alt="">
-							Añadir al carro
-						</a>
-					</div>
-				</div>
-			</div>
-
-		</section>
-
-		<!-- SECCIÓN ACCESORIOS -->
-		<section class="mb-5">
-			<div class="item" th:each="p : ${lstAccesorios}">
-				<div class="card text-center border-0 shadow-sm mx-auto" style="width: 220px;">
-					<img th:src="@{'/imgFront/accesorio/' + ${p.idProducto} + '.jpg'}" class="card-img-top p-2"
-						alt="Imagen" style="height: 160px; object-fit: contain;">
-					<div class="card-body p-2">
-						<h6 class="card-title text-truncate" th:text="${p.nombreProducto}" style="max-width: 200px;">
-						</h6>
-						<p class="fw-bold text-primary mb-2"
-							th:text="|S/. ${#numbers.formatDecimal(p.precio,1,2,'POINT')}|"></p>
-						<a class="btn btn-sm btn-primary d-flex align-items-center justify-content-center gap-1"
-							th:href="@{'/mostrarProducto?codigo=' + ${p.idProducto}}">
-							<img th:src="@{/imgFront/productos/carrodecompra.png}" style="width: 16px;" alt="">
-							Añadir al carro
-						</a>
-					</div>
-				</div>
-			</div>
-
-		</section>
-
-	</main>
-</div>
-
-</html>
+</th:block>

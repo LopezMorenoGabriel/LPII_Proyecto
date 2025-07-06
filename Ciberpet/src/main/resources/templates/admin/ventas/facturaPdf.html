@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8" />
+  <title>Factura</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      font-size: 12px;
+      color: #333;
+      margin: 20px;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #333;
+      padding-bottom: 10px;
+    }
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .logo span {
+      font-size: 24px;
+    }
+    .factura-info {
+      text-align: right;
+    }
+    .cliente {
+      margin: 20px 0;
+      font-weight: bold;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 10px;
+    }
+    th, td {
+      padding: 6px;
+      border-bottom: 1px solid #ccc;
+      text-align: left;
+    }
+    th {
+      background-color: #f0f0f0;
+    }
+    .totales {
+      width: 100%;
+      margin-top: 10px;
+    }
+    .totales td {
+      padding: 4px;
+    }
+    .totales .label {
+      text-align: right;
+    }
+    .totales .valor {
+      text-align: right;
+      font-weight: bold;
+    }
+    .footer {
+      border-top: 2px solid #333;
+      padding-top: 10px;
+      font-size: 10px;
+      margin-top: 20px;
+    }
+    .thanks {
+      font-weight: bold;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="logo">
+      <span>🐾</span> PetShop
+    </div>
+    <div class="factura-info">
+      <div>FACTURA N.º <strong>${venta.idVenta}</strong></div>
+      <div>Fecha: <strong>${fechaVenta}</strong></div>
+    </div>
+  </div>
+
+  <div class="cliente">
+    ${venta.usuario.nombreCompleto}<br/>
+    ${venta.usuario.telefono}<br/>
+    ${venta.usuario.direccion}
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Artículo</th>
+        <th>Cantidad</th>
+        <th>Precio</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- LOOP DETALLES -->
+      ${detalles}
+    </tbody>
+  </table>
+
+  <table class="totales">
+    <tr>
+      <td class="label">Subtotal:</td>
+      <td class="valor">S/. ${subtotal}</td>
+    </tr>
+    <tr>
+      <td class="label">Impuestos (0%):</td>
+      <td class="valor">S/. 0.00</td>
+    </tr>
+    <tr>
+      <td class="label">Total:</td>
+      <td class="valor" style="font-size: 14px; border-top: 1px solid #333;">S/. ${venta.total}</td>
+    </tr>
+  </table>
+
+  <div class="thanks">¡Gracias por su compra!</div>
+
+  <div class="footer">
+      Información de pago:<br/>
+      CiberPet - BancoChamo<br/>
+      Cuenta: 0123 4567 8901 2345<br/>
+      Fecha de pago: 5 de julio 2025<br/><br/>
+      
+      Contacto:<br/>
+      (51) 999-666-999 | billing@ciberpet.com<br/>
+      Calle sin veredas 123, Urb Infierno, 15444<br/>
+      www.ciberpet.com
+    </div>
+
+  </body>
+  </html>
+

@@ -1,0 +1,107 @@
+<th:block th:replace="~{admin/layout_admin_bs5 :: plantilla_admin(
+    titulo='Dashboard', 
+    contenido_admin=~{::#dashboard-content}, 
+    seccion_scripts=~{::#dashboard-scripts}
+)}">
+
+	<div id="dashboard-content">
+
+		<div th:if="${alert != null}" th:utext="${alert}"></div>
+		<th:block th:if="${toast != null}" th:utext="${toast}"></th:block>
+
+		<div class="row">
+			<!-- Nuevas Citas -->
+			<div class="col-lg-3 col-md-6 mb-4">
+				<div class="card text-white bg-info shadow">
+					<div class="card-body">
+						<div class="row align-items-center">
+							<div class="col">
+								<div class="fs-3 fw-bold" th:text="${nuevasCitas}">0</div>
+								<div class="text-uppercase small">Nuevas Citas</div>
+							</div>
+							<div class="col-auto">
+								<i class="fas fa-calendar-plus fa-3x opacity-50"></i>
+							</div>
+						</div>
+					</div>
+					<a th:href="@{/admin/citas}" class="card-footer text-white d-flex justify-content-between text-decoration-none">
+						<span>Ver Detalles</span>
+						<i class="fas fa-arrow-circle-right"></i>
+					</a>
+				</div>
+			</div>
+
+			<!-- Nuevos Productos -->
+			<div class="col-lg-3 col-md-6 mb-4">
+				<div class="card text-white bg-success shadow">
+					<div class="card-body">
+						<div class="row align-items-center">
+							<div class="col">
+								<div class="fs-3 fw-bold" th:text="${nuevosProductos}">0</div>
+								<div class="text-uppercase small">Productos Nuevos</div>
+							</div>
+							<div class="col-auto">
+								<i class="fas fa-box fa-3x opacity-50"></i>
+							</div>
+						</div>
+					</div>
+					<a th:href="@{/admin/productos}" class="card-footer text-white d-flex justify-content-between text-decoration-none">
+						<span>Ver Detalles</span>
+						<i class="fas fa-arrow-circle-right"></i>
+					</a>
+				</div>
+			</div>
+
+			<!-- Nuevos Clientes -->
+			<div class="col-lg-3 col-md-6 mb-4">
+				<div class="card text-white bg-warning shadow">
+					<div class="card-body">
+						<div class="row align-items-center">
+							<div class="col">
+								<div class="fs-3 fw-bold" th:text="${nuevosClientes}">0</div>
+								<div class="text-uppercase small">Clientes Registrados</div>
+							</div>
+							<div class="col-auto">
+								<i class="fas fa-users fa-3x opacity-50"></i>
+							</div>
+						</div>
+					</div>
+					<a th:href="@{/admin/clientes}" class="card-footer text-white d-flex justify-content-between text-decoration-none">
+						<span>Ver Detalles</span>
+						<i class="fas fa-arrow-circle-right"></i>
+					</a>
+				</div>
+			</div>
+
+			<!-- Ingresos del Mes -->
+			<div class="col-lg-3 col-md-6 mb-4">
+				<div class="card text-white bg-danger shadow">
+					<div class="card-body">
+						<div class="row align-items-center">
+							<div class="col">
+								<div class="fs-3 fw-bold" th:text="|S/ ${#numbers.formatDecimal(ingresosDelMes, 1, 2, 'POINT')}|">S/ 0.00</div>
+								<div class="text-uppercase small">Ingresos (Mes)</div>
+							</div>
+							<div class="col-auto">
+								<i class="fas fa-dollar-sign fa-3x opacity-50"></i>
+							</div>
+						</div>
+					</div>
+					<a th:href="@{/admin/ventas}" class="card-footer text-white d-flex justify-content-between text-decoration-none">
+						<span>Ver Reportes</span>
+						<i class="fas fa-arrow-circle-right"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="alert alert-primary" role="alert">
+			¡Bienvenido al panel de administración de CiberPet!
+		</div>
+		
+	</div>
+
+	<div id="dashboard-scripts">
+	</div>
+
+</th:block>

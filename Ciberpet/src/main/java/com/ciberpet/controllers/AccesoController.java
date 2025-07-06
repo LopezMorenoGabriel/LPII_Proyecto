@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.ciberpet.dtos.AutentacionFilter;
+import com.ciberpet.dtos.AutenticacionFilter;
+import com.ciberpet.dtos.RegistroUsuarioDTO;
 import com.ciberpet.dtos.ResultadoResponse;
-import com.ciberpet.models.Tipo;
 import com.ciberpet.models.Usuario;
 import com.ciberpet.services.AutenticacionService;
 import com.ciberpet.utils.Alert;
@@ -25,91 +25,77 @@ public class AccesoController {
 	@Autowired
 	private AutenticacionService autenticacionService;
 
-	@GetMapping({ "/", "/login" })
+	@GetMapping("/login")
 	public String login(Model model) {
-		model.addAttribute("filter", new AutentacionFilter());
+		model.addAttribute("filter", new AutenticacionFilter());
 		return "acceso/login";
 	}
 
 	@PostMapping("/iniciar-sesion")
-	public String iniciarSesion(@ModelAttribute AutentacionFilter filter, HttpSession session, Model model,
+	public String iniciarSesion(@ModelAttribute AutenticacionFilter filter, 
+	                            HttpSession session, 
 	                            RedirectAttributes flash) {
 	    Usuario usuarioValidado = autenticacionService.autenticar(filter);
 
 	    if (usuarioValidado == null) {
-	        model.addAttribute("filter", new AutentacionFilter());
-	        model.addAttribute("alert", Alert.sweetAlertError("Usuario y/o clave incorrecta"));
-	        return "acceso/login";
+	        flash.addFlashAttribute("alert", Alert.sweetAlertError("Usuario y/o clave incorrecta"));
+	        return "redirect:/login";
 	    }
 
-	    session.setAttribute("idUsuario", usuarioValidado.getIdUser());
-	    session.setAttribute("nombreCompleto", usuarioValidado.getNombre() + " " + usuarioValidado.getApellidos());
+	    if (usuarioValidado.getIdEstado() == null || !usuarioValidado.getIdEstado()) {
+	        flash.addFlashAttribute("alert", Alert.sweetAlertError("Tu cuenta está desactivada o restringida. Por favor, contacta al soporte."));
+	        return "redirect:/login";
+	    }
+
+	    session.setAttribute("idUsuario", usuarioValidado.getIdUsuario());
+	    session.setAttribute("nombreCompleto", usuarioValidado.getNombreCompleto());
 	    session.setAttribute("cuenta", usuarioValidado.getCorreo());
 	    session.setAttribute("rol", usuarioValidado.getTipo().getDescripcion());
 	    session.setAttribute("usuarioSesion", usuarioValidado);
 
-
-	    flash.addFlashAttribute("alert", Alert.sweetAlertSuccess("Bienvenido, " + usuarioValidado.getNombre() + "!"));
+	    flash.addFlashAttribute("toast", Alert.sweetToast("Bienvenido, " + usuarioValidado.getNombre() + "!", "success", 4000));
 
 	    if ("Administrador".equalsIgnoreCase(usuarioValidado.getTipo().getDescripcion())) {
-	        return "redirect:/dashboard";
+	        return "redirect:/admin/dashboard";
 	    } else {
-	        return "redirect:/productos";
+	        return "redirect:/";
 	    }
 	}
 
-
-	@GetMapping("/home")
-	public String home(HttpSession session, Model model) {
-		if (session.getAttribute("cuenta") == null)
-			return "redirect:/login";
-		return "home";
-	}
-
-	@GetMapping("/cerrar-sesion")
+	@PostMapping("/cerrar-sesion")
 	public String cerrarSesion(HttpSession session) {
-		session.invalidate();
-		return "redirect:/inicio";
+	    session.invalidate();
+	    return "redirect:/";
 	}
 	
 	@GetMapping("/registrar-usuario")
 	public String mostrarRegistro(Model model) {
-	    model.addAttribute("usuario", new Usuario());
+	    if (!model.containsAttribute("usuario")) {
+	        model.addAttribute("usuario", new RegistroUsuarioDTO());
+	    }
 	    return "acceso/registro";
 	}
-	
+
 	@PostMapping("/registrar-usuario")
-	public String registrarUsuario(@Valid @ModelAttribute Usuario usuario, BindingResult bindingResult,
-	                               Model model, RedirectAttributes flash) {
+	public String registrarUsuario(@Valid @ModelAttribute("usuario") RegistroUsuarioDTO usuarioDto, 
+	                               BindingResult bindingResult,
+	                               Model model, 
+	                               RedirectAttributes flash) {
 
 	    if (bindingResult.hasErrors()) {
-	        model.addAttribute("alert", Alert.sweetAlertInfo("Falta completar información"));
-	        model.addAttribute("usuario", usuario);
+	        model.addAttribute("alert", Alert.sweetAlertInfo("Por favor, revisa los errores en el formulario."));
+	        return "acceso/registro";
+	    }
+	    
+	    ResultadoResponse response = autenticacionService.createFromDto(usuarioDto);
+
+	    if (!response.success) {
+	        model.addAttribute("alert", Alert.sweetAlertError(response.mensaje));
 	        return "acceso/registro";
 	    }
 
-	    try {
-	        Tipo tipoCliente = new Tipo();
-	        tipoCliente.setIdTipo(2);
-	        usuario.setTipo(tipoCliente);
-
-	        ResultadoResponse response = autenticacionService.create(usuario);
-
-	        if (!response.success) {
-	            model.addAttribute("alert", Alert.sweetAlertError(response.mensaje));
-	            model.addAttribute("usuario", usuario);
-	            return "acceso/registro";
-	        }
-
-	        flash.addFlashAttribute("toast", Alert.sweetToast("Usuario registrado correctamente.", "success", 5000));
-	        return "redirect:/login";
-
-	    } catch (Exception e) {
-	        model.addAttribute("alert", Alert.sweetAlertError("Error al registrar: " + e.getMessage()));
-	        model.addAttribute("usuario", usuario);
-	        return "acceso/registro";
-	    }
+	    flash.addFlashAttribute("toast", Alert.sweetToast("¡Cuenta creada con éxito! Por favor, inicia sesión.", "success", 5000));
+	    return "redirect:/login";
 	}
-
 
 }

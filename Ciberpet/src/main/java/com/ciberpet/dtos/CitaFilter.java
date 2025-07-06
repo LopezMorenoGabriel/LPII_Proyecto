@@ -6,6 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CitaFilter {
-	private Integer idServicio;
-	private String estado;
+    private Integer idServicio; 
+    private Integer idEstadoCita; 
 }

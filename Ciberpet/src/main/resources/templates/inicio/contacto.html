@@ -1,46 +1,118 @@
-<!DOCTYPE HTML>
-<link th:href="@{cssFront/estilos.css}" rel="stylesheet">
-<link th:href="@{cssFront/botones.css}" rel="stylesheet">
-<link th:href="@{cssFront/sobrenosotros.css}" rel="stylesheet">
-<link rel="stylesheet" th:href="@{cssFront/carrusel.css}">
-<html xmlns:th="http://www.thymeleaf.org" th:replace="shared/layout :: layoutPagina(~{::contenido})">
+<th:block th:replace="~{layout :: plantilla(titulo='| Contacto', contenido=~{::contenido-principal})}">
 
-<div th:fragment="contenido">
-	<div class="banner">
-		<img th:src="@{/imgFront/banner.png}" alt="banner">
-	</div>
+	<th:block th:fragment="contenido-principal">
 
-	<!-- SECCIONES -->
-	<article>
-		<section>
-			<h2>Ubicación</h2>
-			<br><br>
-			<p>
-				Nos encontramos en el corazón de Lima, en la Av. Siempre Viva 1234, Lima, Perú.
-				Nuestro local es de fácil acceso y cuenta con estacionamiento gratuito para nuestros clientes.
-			</p>
+		<section class="py-5 text-center container">
+			<div class="row py-lg-5">
+				<div class="col-lg-6 col-md-8 mx-auto">
+					<h1 class="fw-light">Ponte en Contacto con Nosotros</h1>
+					<p class="lead text-muted">¿Tienes alguna pregunta o quieres agendar una cita? Estamos aquí para ayudarte. Completa el formulario o utiliza cualquiera de nuestros canales de comunicación.</p>
+				</div>
+			</div>
 		</section>
 
-		<section>
-			<h2>Horario de atención</h2>
-			<br>
-			<ul>
-				<li>Lunes a Viernes: 9:00 AM - 6:00 PM</li>
-				<li>Sábados: 10:00 AM - 2:00 PM</li>
-				<li>Domingos y Feriados: Cerrado</li>
-			</ul>
+		<section class="container">
+			<div class="row g-5">
+
+				<div class="col-md-7">
+					<h3 class="fw-bold mb-4">Envíanos un Mensaje</h3>
+					<form class="needs-validation" novalidate>
+						<div class="mb-3">
+							<label for="nombre" class="form-label">Nombre Completo</label>
+							<input type="text" class="form-control" id="nombre" placeholder="Ej: Juan Pérez" required>
+							<div class="invalid-feedback">Por favor, ingresa tu nombre.</div>
+						</div>
+						
+						<div class="mb-3">
+							<label for="email" class="form-label">Correo Electrónico</label>
+							<input type="email" class="form-control" id="email" placeholder="tu@correo.com" required>
+							<div class="invalid-feedback">Por favor, ingresa un correo válido.</div>
+						</div>
+
+						<div class="mb-3">
+							<label for="asunto" class="form-label">Asunto</label>
+							<select class="form-select" id="asunto" required>
+								<option value="" selected disabled>Selecciona una opción...</option>
+								<option value="consulta">Consulta General</option>
+								<option value="cita">Agendar una Cita</option>
+								<option value="producto">Información de Productos</option>
+								<option value="otro">Otro</option>
+							</select>
+							<div class="invalid-feedback">Por favor, selecciona un asunto.</div>
+						</div>
+
+						<div class="mb-3">
+							<label for="mensaje" class="form-label">Mensaje</label>
+							<textarea class="form-control" id="mensaje" rows="5" placeholder="Escribe tu mensaje aquí..." required></textarea>
+							<div class="invalid-feedback">Por favor, escribe tu mensaje.</div>
+						</div>
+						
+						<button class="btn btn-success btn-lg w-100" type="submit">Enviar Mensaje</button>
+					</form>
+				</div>
+
+				<div class="col-md-5">
+					<div class="bg-light p-4 rounded-3 h-100">
+						<h3 class="fw-bold mb-4">Nuestra Información</h3>
+						
+						<ul class="list-unstyled">
+							<li class="d-flex mb-3">
+								<i class="fas fa-map-marker-alt fa-2x text-success mt-1 me-3"></i>
+								<div>
+									<h5 class="fw-bold mb-0">Dirección</h5>
+									<p class="text-muted mb-0">Av. Principal 123, Miraflores<br>Lima, Perú</p>
+								</div>
+							</li>
+							<li class="d-flex mb-3">
+								<i class="fas fa-phone-alt fa-2x text-success mt-1 me-3"></i>
+								<div>
+									<h5 class="fw-bold mb-0">Teléfono</h5>
+									<p class="text-muted mb-0">+51 987 654 321</p>
+								</div>
+							</li>
+							<li class="d-flex">
+								<i class="fas fa-envelope fa-2x text-success mt-1 me-3"></i>
+								<div>
+									<h5 class="fw-bold mb-0">Correo</h5>
+									<p class="text-muted mb-0">consultas@ciberpet.com</p>
+								</div>
+							</li>
+						</ul>
+						
+						<hr class="my-4">
+
+						<h4 class="fw-bold mb-3">Horario de Atención</h4>
+						<ul class="list-unstyled">
+							<li class="d-flex justify-content-between">
+								<span class="text-muted">Lunes a Viernes:</span>
+								<strong>9:00 AM - 8:00 PM</strong>
+							</li>
+							<li class="d-flex justify-content-between">
+								<span class="text-muted">Sábados:</span>
+								<strong>10:00 AM - 6:00 PM</strong>
+							</li>
+							<li class="d-flex justify-content-between">
+								<span class="text-muted">Domingos:</span>
+								<strong>Cerrado</strong>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
 		</section>
 
-		<section>
-			<h2>Servicio de atención</h2>
-			<br>
-			<ul>
-				<li>Teléfono: (01) 234 5678</li>
-				<li>Correo Electrónico: servicioalcliente@ciberpet.com</li>
-				<li>WhatsApp: +51 987 654 321</li>
-			</ul>
+		<section class="container p-0 mt-5">
+			<iframe 
+				src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3900.985959914106!2d-77.02877528518683!3d-12.11237919142295!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105c8f1f7d3c0c1%3A0x2d1b8e1a1b5a5b5!2sParque%20Kennedy%2C%20Miraflores!5e0!3m2!1ses-419!2spe!4v1672517855963!5m2!1ses-419!2spe" 
+				width="100%" 
+				height="450" 
+				style="border:0;" 
+				allowfullscreen="" 
+				loading="lazy" 
+				referrerpolicy="no-referrer-when-downgrade">
+			</iframe>
 		</section>
-	</article>
-</div>
 
-</html>
+	</th:block>
+
+</th:block>

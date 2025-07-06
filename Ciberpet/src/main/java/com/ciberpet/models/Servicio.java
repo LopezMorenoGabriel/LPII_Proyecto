@@ -14,17 +14,21 @@ import lombok.Setter;
 @Entity
 @Table(name = "TB_SERVICIO")
 public class Servicio {
-	@Id
+
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idServicio")
     private Integer idServicio;
 
-    @Column(name = "nom_servicio", nullable = false, length = 50)
-    private String nomServicio;
+    @Column(name = "nombre", nullable = false, length = 100)
+    private String nombre;
 
-    @Column(name = "descrip_servicio", nullable = false, length = 50)
-    private String descripServicio;
+    @Column(name = "descripcion")
+    private String descripcion;
 
-    @Column(name = "precio_servicio", nullable = false)
-    private Double precioServicio;
+    @Column(name = "precio", nullable = false)
+    private Double precio;
+
+    @Column(name = "estado", nullable = false)
+	private Boolean idEstado;
 }

@@ -1,20 +1,12 @@
 package com.ciberpet.models;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.FutureOrPresent;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -30,54 +22,34 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Cita {
-	@Id
-	@Column(name = "idCita")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idCita;
-	
-	@NotNull(message = "La fecha de la cita es obligatoria")
-    @FutureOrPresent(message = "La fecha de la cita no puede ser anterior a hoy")
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Column(name = "fecha_cita")
-    private LocalDate fechaCita;
 
-    @NotBlank(message = "La hora de la cita es obligatoria")
-    @Column(name = "hora_cita")
-    private String horaCita;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idCita")
+    private int idCita;
+
+    @NotNull(message = "La fecha y hora de la cita es obligatoria")
+    @FutureOrPresent(message = "La cita no puede estar en el pasado")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @Column(name = "fecha_hora_cita", nullable = false)
+    private LocalDateTime fechaHoraCita;
 
     @NotNull(message = "Debe seleccionar un usuario")
-    @ManyToOne
-    @JoinColumn(name = "idUsuario")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idUsuario", nullable = false)
     private Usuario usuario;
-   
-    @ManyToOne
-    @JoinColumn(name = "idServicio")
+
     @NotNull(message = "Debe seleccionar un servicio")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idServicio", nullable = false)
     private Servicio servicio;
 
-    @NotBlank(message = "Debe ingresar el motivo de la cita")
     @Size(max = 100, message = "El motivo no puede tener más de 100 caracteres")
-    @Column(name = "Motivo")
+    @Column(name = "motivo")
     private String motivo;
-    
-    @Column(name = "estado")
-    @NotBlank(message = "Debe ingresar el estado de la cita")
-    @NotNull(message = "Debe seleccionar un servicio")
-    private String estado;
-    
-    public String getNombreEstado() {
-        switch (estado) {
-            case "P":
-                return "Pendiente";
-            case "E":
-                return "En espera";
-            case "C":
-                return "Cancelada";
-            case "A":
-                return "Atendida";
-            default:
-                return "Desconocido";
-        }
-    }
 
+    @NotNull(message = "Debe asignar un estado para la cita")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idEstadoCita", nullable = false)
+    private EstadoCita estadoCita;
 }

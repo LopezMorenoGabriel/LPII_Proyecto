@@ -1,0 +1,95 @@
+<th:block th:replace="~{admin/layout_admin_bs5 :: plantilla_admin(
+    titulo='Editar Cliente', 
+    contenido_admin=~{::#contenido-editar-cliente}, 
+    seccion_scripts=~{::#scripts-editar-cliente}
+)}">
+
+    <div id="contenido-editar-cliente">
+        <div class="row mb-3 align-items-center">
+            <div class="col-md-10">
+                <h2 class="m-0">Editar Cliente</h2>
+            </div>
+            <div class="col-md-2 text-end">
+                <a th:href="@{/admin/clientes}" class="btn btn-dark">
+                    <i class="fas fa-arrow-left me-1"></i>Regresar
+                </a>
+            </div>
+        </div>
+
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <form th:action="@{/admin/clientes/guardar}" method="post" th:object="${cliente}" class="needs-validation" novalidate>
+                    <input type="hidden" th:field="*{idUsuario}"/>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input type="text" th:field="*{nombre}" class="form-control" 
+                                   th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid' : ''">
+                            <div class="invalid-feedback" th:errors="*{nombre}"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="apellidos" class="form-label">Apellidos</label>
+                            <input type="text" th:field="*{apellidos}" class="form-control" 
+                                   th:classappend="${#fields.hasErrors('apellidos')} ? 'is-invalid' : ''">
+                            <div class="invalid-feedback" th:errors="*{apellidos}"></div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="correo" class="form-label">Correo Electrónico</label>
+                            <input type="email" th:field="*{correo}" class="form-control" 
+                                   th:classappend="${#fields.hasErrors('correo')} ? 'is-invalid' : ''">
+                            <div class="invalid-feedback" th:errors="*{correo}"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="telefono" class="form-label">Teléfono</label>
+                            <input type="text" th:field="*{telefono}" class="form-control" 
+                                   th:classappend="${#fields.hasErrors('telefono')} ? 'is-invalid' : ''">
+                            <div class="invalid-feedback" th:errors="*{telefono}"></div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+					<div class="col-md-6">
+					    <label for="estado" class="form-label">Estado</label>
+					    <select th:field="*{idEstado}" class="form-select"
+					            th:classappend="${#fields.hasErrors('idEstado')} ? 'is-invalid' : ''">
+					        <option value="1" th:selected="*{idEstado == 1}">Activo</option>
+					        <option value="0" th:selected="*{idEstado == 0}">Inactivo</option>
+					    </select>
+					    <div class="invalid-feedback" th:errors="*{idEstado}"></div>
+					</div>
+                        <div class="col-md-6">
+                            <label for="direccion" class="form-label">Dirección</label>
+                            <input type="text" th:field="*{direccion}" class="form-control"
+                                   th:classappend="${#fields.hasErrors('direccion')} ? 'is-invalid' : ''">
+                            <div class="invalid-feedback" th:errors="*{direccion}"></div>
+                        </div>
+                    </div>
+
+                    <!-- Campo oculto para tipo de cliente -->
+                    <div class="mb-4 d-none">
+                        <label for="tipo" class="form-label">Tipo de Usuario</label>
+                        <select class="form-select" th:field="*{tipo.idTipo}">
+                            <option value="2" selected>Cliente</option>
+                        </select>
+                    </div>
+
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-1"></i> Guardar Cambios
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="scripts-editar-cliente">
+        <th:block th:if="${alert != null}" th:utext="${alert}"></th:block>
+        <th:block th:if="${toast != null}" th:utext="${toast}"></th:block>
+    </div>
+
+</th:block>

@@ -1,0 +1,112 @@
+<th:block
+	th:replace="~{admin/layout_admin_bs5 :: plantilla_admin(titulo='Listado de Productos', contenido_admin=~{::#contenido-productos}, seccion_scripts=~{::#scripts-productos})}">
+
+	<div id="contenido-productos">
+		<div class="row mb-3 align-items-center">
+			<div class="col-md-10">
+				<h2 class="m-0">Gestión de Productos</h2>
+			</div>
+			<div class="col-md-2 text-end">
+				<a th:href="@{/admin/productos/crear}" class="btn btn-success">
+					<i class="fas fa-plus me-1"></i>Nuevo
+				</a>
+			</div>
+		</div>
+
+		<div class="card shadow-sm mb-3">
+			<div class="card-body">
+				<form method="get" th:action="@{/admin/productos}" th:object="${filtro}">
+					<div class="row">
+						<div class="col-md-4">
+							<label for="categoria" class="form-label">Filtrar por Categoría:</label>
+							<select class="form-select" th:field="*{idCategoria}" onchange="this.form.submit()">
+								<option value="">-- Todas las categorías --</option>
+								<option th:each="item : ${categorias}" th:value="${item.idCategoria}"
+									th:text="${item.descripcion}"></option>
+							</select>
+						</div>
+						
+						<div class="col-md-4">
+							<label for="estado" class="form-label">Filtrar por Estado:</label>
+							<select class="form-select" th:field="*{idEstado}" onchange="this.form.submit()">
+								<option value="">-- Todos --</option>
+								<option th:value="true">Activos</option>
+								<option th:value="false">Inactivos</option>
+							</select>
+						</div>
+
+						<div class="col-md-2 d-flex align-items-end">
+							<a th:href="@{/admin/productos}" class="btn btn-outline-secondary w-100">
+								<i class="fas fa-sync-alt me-1"></i>Limpiar
+							</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<div class="card shadow-sm">
+			<div class="card-body">
+				<table id="tblProductos" class="table table-hover table-striped" style="width:100%">
+					<thead>
+						<tr>
+							<th>Código</th>
+							<th>Descripción</th>
+							<th>Stock</th>
+							<th>Precio</th>
+							<th>Categoría</th>
+							<th>Estado</th>
+							<th>Acciones</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="item : ${lstProducto}" class="align-middle">
+							<td th:text="${item.idProducto}"></td>
+							<td th:text="${item.nombreProducto}"></td>
+							<td th:text="${item.stock}"></td>
+							<td class="text-end" th:text="|S/. ${#numbers.formatDecimal(item.precio,1,2,'POINT')}|">
+							</td>
+							<td th:text="${item.categoria.descripcion}" class="text-center"></td>
+							<td th:text="${item.idEstado ? 'Activo' : 'Inactivo'}" class="text-center">
+							<td class="text-center">
+
+								<div class="d-flex justify-content-center align-items-center">
+									<a th:href="@{/admin/productos/editar/{id}(id=${item.idProducto})}"
+										class="btn btn-sm btn-outline-primary" title="Editar">
+										<i class="fas fa-edit"></i>
+									</a>
+									<form method="post"
+										th:action="@{/admin/productos/cambiar-estado/{id}(id=${item.idProducto})}"
+										class="mb-0">
+										<div class="form-switch">
+											<input class="form-check-input" type="checkbox"
+												th:checked="${item.idEstado}" onchange="this.form.submit()">
+										</div>
+									</form>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<div id="scripts-productos">
+		<script th:inline="javascript">
+			$(document).ready(function () {
+				$('#tblProductos').DataTable({
+					language: {
+						url: 'https://cdn.datatables.net/plug-ins/2.0.8/i18n/es-ES.json'
+					},
+					responsive: true,
+					order: [0, 'desc']
+				});
+			});
+		</script>
+		<th:block th:if="${alert != null}" th:utext="${alert}"></th:block>
+		<th:block th:if="${toast != null}" th:utext="${toast}"></th:block>
+
+	</div>
+
+</th:block>

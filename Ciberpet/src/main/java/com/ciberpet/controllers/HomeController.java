@@ -13,7 +13,7 @@ public class HomeController {
 	@Autowired
 	private ProductoService _productoService;
 
-	@GetMapping("/inicio")
+	@GetMapping({"/", "/inicio"})
 	public String mostrarInicio() {
 		return "inicio/inicio";
 	}

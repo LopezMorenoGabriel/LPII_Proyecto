@@ -1,0 +1,92 @@
+<th:block
+	th:replace="~{admin/layout_admin_bs5 :: plantilla_admin(titulo='Detalle de Venta', contenido_admin=~{::#contenido-detalle-venta}, seccion_scripts=~{::#scripts-detalle-venta})}">
+
+	<div id="contenido-detalle-venta">
+		<div class="row mb-3 align-items-center">
+			<div class="col-md-12">
+				<h2 class="m-0">Detalle de Venta #<span th:text="${venta.idVenta}"></span></h2>
+			</div>
+		</div>
+
+		<div class="card shadow-sm mb-3">
+			<div class="card-body">
+				<div class="row mb-2">
+					<div class="col-md-4">
+						<strong>Cliente:</strong>
+						<p class="mb-0" th:text="${venta.usuario.nombreCompleto}"></p>
+					</div>
+					<div class="col-md-4">
+						<strong>Fecha de Venta:</strong>
+						<p class="mb-0" th:text="${#temporals.format(venta.fechaVenta, 'dd/MM/yyyy HH:mm')}"></p>
+					</div>
+					<div class="col-md-4">
+						<strong>Estado:</strong>
+						<p class="mb-0 text-success" th:if="${venta.idEstado}">Procesada</p>
+						<p class="mb-0 text-danger" th:if="${!venta.idEstado}">Anulada</p>
+					</div>
+				</div>
+
+				<div class="row mb-2">
+					<div class="col-md-4">
+						<strong>Correo:</strong>
+						<p class="mb-0" th:text="${venta.usuario.correo}"></p>
+					</div>
+					<div class="col-md-4">
+						<strong>Teléfono:</strong>
+						<p class="mb-0" th:text="${venta.usuario.telefono}"></p>
+					</div>
+					<div class="col-md-4">
+						<strong>Total:</strong>
+						<p class="mb-0" th:text="|S/. ${#numbers.formatDecimal(venta.total, 1, 2, 'POINT')}|"></p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="card shadow-sm">
+			<div class="card-body">
+				<h5 class="card-title mb-3">Productos Vendidos</h5>
+				<table class="table table-bordered table-hover table-striped">
+					<thead class="table-dark">
+						<tr>
+							<th>#</th>
+							<th>Producto</th>
+							<th>Cantidad</th>
+							<th>Precio Unitario</th>
+							<th>Subtotal</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="detalle, iter : ${venta.detalles}">
+							<td th:text="${iter.count}"></td>
+							<td th:text="${detalle.producto.nombreProducto}"></td>
+							<td th:text="${detalle.cantidad}"></td>
+							<td th:text="|S/. ${#numbers.formatDecimal(detalle.precioUnitario, 1, 2, 'POINT')}|"></td>
+							<td th:text="|S/. ${#numbers.formatDecimal(detalle.subtotal, 1, 2, 'POINT')}|"></td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<th colspan="4" class="text-end">Total:</th>
+							<th th:text="|S/. ${#numbers.formatDecimal(venta.total, 1, 2, 'POINT')}|"></th>
+						</tr>
+					</tfoot>
+				</table>
+				<div class="d-flex justify-content-between mt-3">
+					<a th:href="@{/admin/ventas}" class="btn btn-outline-secondary">
+						<i class="fas fa-arrow-left me-1"></i>Volver al Listado
+					</a>
+					<a th:href="@{/admin/ventas/factura/{id}(id=${venta.idVenta})}" target="_blank"
+					   class="btn btn-danger">
+					   <i class="fas fa-print me-1"></i>Imprimir Factura
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="scripts-detalle-venta">
+		<th:block th:if="${alert != null}" th:utext="${alert}"></th:block>
+		<th:block th:if="${toast != null}" th:utext="${toast}"></th:block>
+	</div>
+</th:block>

@@ -1,0 +1,103 @@
+<div id="sidebar-wrapper" th:fragment="sidebar"
+     class="bg-dark text-white d-flex flex-column min-vh-100 position-fixed start-0 top-0 overflow-auto"
+     style="width: 250px;">
+
+    <!-- Encabezado -->
+    <div class="sidebar-heading text-center py-4 fs-4 border-bottom">
+        <a th:href="@{/admin/dashboard}" class="text-white text-decoration-none">
+            <i class="fas fa-paw me-2"></i><strong>CiberPet</strong>
+        </a>
+    </div>
+
+    <!-- Menú -->
+    <div class="list-group list-group-flush flex-grow-1">
+
+        <!-- Dashboard -->
+        <a th:href="@{/admin/dashboard}"
+           class="list-group-item list-group-item-action bg-dark text-white border-0"
+           th:classappend="${currentUri == '/admin/dashboard' ? ' active' : ''}">
+            <i class="fas fa-tachometer-alt fa-fw me-3"></i>Dashboard
+        </a>
+
+        <!-- Productos -->
+        <a href="#submenu-productos" data-bs-toggle="collapse"
+           class="list-group-item list-group-item-action bg-dark text-white border-0 d-flex justify-content-between align-items-center"
+           th:classappend="${#strings.startsWith(currentUri, '/admin/productos') ? ' active' : ''}">
+            <span><i class="fas fa-box-open fa-fw me-3"></i>Productos</span>
+            <i class="fas fa-chevron-down small"></i>
+        </a>
+        <div class="collapse"
+             id="submenu-productos"
+             th:classappend="${#strings.startsWith(currentUri, '/admin/productos') ? ' show' : ''}">
+            <div class="list-group list-group-flush">
+                <a th:href="@{/admin/productos}"
+                   class="list-group-item list-group-item-action bg-dark text-white border-0 ps-5"
+                   th:classappend="${currentUri == '/admin/productos' ? ' active' : ''}">Listado</a>
+                <a th:href="@{/admin/productos/crear}"
+                   class="list-group-item list-group-item-action bg-dark text-white border-0 ps-5"
+                   th:classappend="${currentUri == '/admin/productos/crear' ? ' active' : ''}">Agregar</a>
+            </div>
+        </div>
+
+        <!-- Clientes -->
+        <a href="#submenu-clientes" data-bs-toggle="collapse"
+           class="list-group-item list-group-item-action bg-dark text-white border-0 d-flex justify-content-between align-items-center"
+           th:classappend="${#strings.startsWith(currentUri, '/admin/clientes') ? ' active' : ''}">
+            <span><i class="fas fa-users fa-fw me-3"></i>Clientes</span>
+            <i class="fas fa-chevron-down small"></i>
+        </a>
+        <div class="collapse"
+             id="submenu-clientes"
+             th:classappend="${#strings.startsWith(currentUri, '/admin/clientes') ? ' show' : ''}">
+            <div class="list-group list-group-flush">
+                <a th:href="@{/admin/clientes}"
+                   class="list-group-item list-group-item-action bg-dark text-white border-0 ps-5"
+                   th:classappend="${currentUri == '/admin/clientes' ? ' active' : ''}">Listado</a>
+<!--                <a th:href="@{/admin/clientes/nuevo}"
+                   class="list-group-item list-group-item-action bg-dark text-white border-0 ps-5"
+                   th:classappend="${currentUri == '/admin/clientes/nuevo' ? ' active' : ''}">Agregar</a>-->
+            </div>
+        </div>
+
+        <!-- Citas -->
+        <a href="#submenu-citas" data-bs-toggle="collapse"
+           class="list-group-item list-group-item-action bg-dark text-white border-0 d-flex justify-content-between align-items-center"
+           th:classappend="${#strings.startsWith(currentUri, '/admin/citas') ? ' active' : ''}">
+            <span><i class="fas fa-calendar-alt fa-fw me-3"></i>Citas</span>
+            <i class="fas fa-chevron-down small"></i>
+        </a>
+        <div class="collapse"
+             id="submenu-citas"
+             th:classappend="${#strings.startsWith(currentUri, '/admin/citas') ? ' show' : ''}">
+            <div class="list-group list-group-flush">
+                <a th:href="@{/admin/citas}"
+                   class="list-group-item list-group-item-action bg-dark text-white border-0 ps-5"
+                   th:classappend="${currentUri == '/admin/citas' ? ' active' : ''}">Listado</a>
+<!--                <a th:href="@{/admin/citas/crear}"
+                   class="list-group-item list-group-item-action bg-dark text-white border-0 ps-5"
+                   th:classappend="${currentUri == '/admin/citas/crear' ? ' active' : ''}">Programar</a>-->
+            </div>
+        </div>
+		
+		<!-- Ventas -->
+		<a href="#submenu-ventas" data-bs-toggle="collapse"
+		   class="list-group-item list-group-item-action bg-dark text-white border-0 d-flex justify-content-between align-items-center"
+		   th:classappend="${#strings.startsWith(currentUri, '/admin/ventas') ? ' active' : ''}">
+		    <span><i class="fas fa-shopping-cart fa-fw me-3"></i>Ventas</span>
+		    <i class="fas fa-chevron-down small"></i>
+		</a>
+		<div class="collapse"
+		     id="submenu-ventas"
+		     th:classappend="${#strings.startsWith(currentUri, '/admin/ventas') ? ' show' : ''}">
+		    <div class="list-group list-group-flush">
+		        <a th:href="@{/admin/ventas}"
+		           class="list-group-item list-group-item-action bg-dark text-white border-0 ps-5"
+		           th:classappend="${currentUri == '/admin/ventas' ? ' active' : ''}">Listado</a>
+		<!--        <a th:href="@{/admin/ventas/crear}"
+		           class="list-group-item list-group-item-action bg-dark text-white border-0 ps-5"
+		           th:classappend="${currentUri == '/admin/ventas/crear' ? ' active' : ''}">Registrar</a>-->
+		    </div>
+		</div>
+		
+    </div>
+</div>

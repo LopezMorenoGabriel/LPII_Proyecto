@@ -6,5 +6,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ClienteFilter {
-	private String nombre;
+    private Boolean idEstado; 
 }

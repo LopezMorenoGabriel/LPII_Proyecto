@@ -1,6 +1,9 @@
 package com.ciberpet.services;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,55 +11,84 @@ import org.springframework.stereotype.Service;
 import com.ciberpet.dtos.CitaFilter;
 import com.ciberpet.dtos.ResultadoResponse;
 import com.ciberpet.models.Cita;
+import com.ciberpet.models.EstadoCita;
 import com.ciberpet.repositories.ICitaRepository;
+import com.ciberpet.repositories.IEstadoCitaRepository;
 
 @Service
 public class CitaService {
 
-	@Autowired
-	private ICitaRepository _citaRepository;
+    @Autowired
+    private ICitaRepository _citaRepository;
 
-	public List<Cita> search(CitaFilter filtro) {
-		return _citaRepository.findAllWithFilters(filtro.getIdServicio(), filtro.getEstado());
-	}
+    @Autowired
+    private IEstadoCitaRepository estadoCitaRepository;
 
-	public List<Cita> listarCitasDeCliente(int idUsuario) {
-		return _citaRepository.findByUsuario_IdUserOrderByFechaCitaDesc(idUsuario);
-	}
+    public List<Cita> listar() {
+        return _citaRepository.findAllByOrderByFechaHoraCitaDesc();
+    }
 
-	public Cita getOne(int id) {
-		return _citaRepository.findById(id).orElseThrow();
-	}
+    public List<Cita> search(CitaFilter filtro) {
+        return _citaRepository.findAllWithFilters(filtro.getIdServicio(), filtro.getIdEstadoCita());
+    }
 
-	public ResultadoResponse create(Cita cita) {
-		try {
-			Cita registrada = _citaRepository.save(cita);
-			String mensaje = String.format("Cita con ID %d registrada", registrada.getIdCita());
-			return new ResultadoResponse(true, mensaje);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			return new ResultadoResponse(false, "Error al registrar cita: " + ex.getMessage());
-		}
-	}
+    public Cita getOne(Integer id) {
+        Optional<Cita> optional = _citaRepository.findById(id);
+        return optional.orElseThrow(() -> new RuntimeException("La cita con ID " + id + " no fue encontrada."));
+    }
 
-	public ResultadoResponse update(Cita cita) {
-		try {
-			Cita actualizada = _citaRepository.save(cita);
-			String mensaje = String.format("Cita con ID %d actualizada", actualizada.getIdCita());
-			return new ResultadoResponse(true, mensaje);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			return new ResultadoResponse(false, "Error al actualizar cita: " + ex.getMessage());
-		}
-	}
+    public ResultadoResponse create(Cita cita) {
+        try {
+            Cita registrada = _citaRepository.save(cita);
+            String mensaje = String.format("Cita con ID %d registrada correctamente.", registrada.getIdCita());
+            return new ResultadoResponse(true, mensaje);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResultadoResponse(false, "Error al registrar cita: " + ex.getMessage());
+        }
+    }
 
-	public ResultadoResponse delete(int id) {
-		try {
-			_citaRepository.deleteById(id);
-			return new ResultadoResponse(true, "Cita eliminada correctamente");
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			return new ResultadoResponse(false, "Error al eliminar cita: " + ex.getMessage());
-		}
-	}
+    public ResultadoResponse update(Cita cita) {
+        try {
+            if (!_citaRepository.existsById(cita.getIdCita())) {
+                return new ResultadoResponse(false, "La cita no existe.");
+            }
+
+            Cita actualizada = _citaRepository.save(cita);
+            String mensaje = String.format("Cita con ID %d actualizada correctamente.", actualizada.getIdCita());
+            return new ResultadoResponse(true, mensaje);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResultadoResponse(false, "Error al actualizar cita: " + ex.getMessage());
+        }
+    }
+
+    public ResultadoResponse actualizarEstado(Integer idCita, EstadoCita nuevoEstado) {
+        try {
+            Cita cita = getOne(idCita);
+            cita.setEstadoCita(nuevoEstado);
+            _citaRepository.save(cita);
+            return new ResultadoResponse(true, "Estado actualizado correctamente.");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResultadoResponse(false, "Error al actualizar estado: " + ex.getMessage());
+        }
+    }
+
+    public List<EstadoCita> getEstados() {
+        return estadoCitaRepository.findAll();
+    }
+
+    public long countCitasDelMes() {
+        LocalDateTime inicio = LocalDate.now().withDayOfMonth(1).atStartOfDay();
+        LocalDateTime fin = LocalDate.now().withDayOfMonth(LocalDate.now().lengthOfMonth()).atTime(23, 59, 59);
+        return _citaRepository.countByFechaHoraCitaBetween(inicio, fin);
+    }
+
+    public double calcularIngresosDelMes() {
+        LocalDateTime inicio = LocalDate.now().withDayOfMonth(1).atStartOfDay();
+        LocalDateTime fin = LocalDate.now().withDayOfMonth(LocalDate.now().lengthOfMonth()).atTime(23, 59, 59);
+        return _citaRepository.sumPrecioServiciosDelMes(inicio, fin);
+    }
 }

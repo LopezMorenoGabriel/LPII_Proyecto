@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<footer class="bg-light text-center text-lg-start mt-auto py-3" th:fragment="footer">
+    <div class="text-center text-muted">
+        &copy; <span th:text="${#dates.year(#dates.createNow())}"></span> CiberPet. Todos los derechos reservados.
+    </div>
+</footer>
+
+</body>
+</html>

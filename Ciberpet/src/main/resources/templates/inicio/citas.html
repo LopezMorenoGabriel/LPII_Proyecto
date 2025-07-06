@@ -1,0 +1,122 @@
+<th:block th:replace="~{layout :: plantilla(titulo='Agendar Cita', contenido=~{::contenido-principal})}">
+
+  <th:block th:fragment="contenido-principal">
+
+    <section class="py-5 text-center container">
+      <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <h1 class="fw-light">Agenda tu Cita en CiberPet</h1>
+          <p class="lead text-muted">Es rápido y fácil. Selecciona el servicio que necesitas, elige una fecha
+            y hora, y déjanos el resto a nosotros. ¡Estamos listos para atender a tu mascota!</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="card border-0 shadow-sm">
+            <div class="card-body p-4 p-md-5">
+
+              <div th:if="${session.usuarioSesion != null}" class="alert alert-success">
+                ¡Hola, <strong th:text="${session.usuarioSesion.nombre}"></strong>! Estás agendando una nueva cita.
+              </div>
+
+              <form th:action="@{/registrar-mi-cita}" th:object="${cita}" method="post" class="needs-validation" novalidate>
+                <input type="hidden" th:field="*{usuario.idUsuario}" />
+
+                <div class="mb-3">
+                  <label for="servicio" class="form-label fw-bold">1. Elige el servicio</label>
+                  <select th:field="*{servicio.idServicio}" class="form-select" id="servicio" required>
+                    <option value="" selected disabled>Seleccionar un servicio...</option>
+                    <option th:each="s : ${servicios}"
+                            th:value="${s.idServicio}"
+                            th:text="|${s.nombre} - S/. ${s.precio}|">
+                    </option>
+                  </select>
+                  <div class="invalid-feedback">Por favor, selecciona un servicio.</div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="fechaCita" class="form-label fw-bold">2. Elige una fecha</label>
+                    <input type="date" th:field="*{fecha_cita}" class="form-control" id="fechaCita"
+                           th:min="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"
+                           onchange="actualizarHorasDisponibles()" required>
+                    <div class="invalid-feedback">Por favor, selecciona una fecha válida.</div>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="horaCita" class="form-label fw-bold">3. Elige una hora disponible</label>
+                    <select th:field="*{hora_cita}" class="form-select" id="horaCita" required disabled>
+                      <option value="">Primero selecciona una fecha</option>
+                    </select>
+                    <div class="invalid-feedback">Por favor, selecciona una hora.</div>
+                  </div>
+                </div>
+
+                <div class="mb-4">
+                  <label for="motivo" class="form-label fw-bold">4. Motivo de la cita (opcional)</label>
+                  <textarea th:field="*{Motivo}" class="form-control" id="motivo" rows="4"
+                            placeholder="Ej: Mi perro no quiere comer, revisión anual, corte de pelo, etc."></textarea>
+                </div>
+
+                <div class="d-grid">
+                  <button class="btn btn-success btn-lg" type="submit">Confirmar Cita</button>
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script th:inline="javascript">
+      function actualizarHorasDisponibles() {
+        const fechaInput = document.getElementById('fechaCita');
+        const horaSelect = document.getElementById('horaCita');
+        const fechaSeleccionada = fechaInput.value;
+
+        horaSelect.innerHTML = '<option value="">Cargando...</option>';
+        horaSelect.disabled = true;
+
+        if (!fechaSeleccionada) {
+          horaSelect.innerHTML = '<option value="">Primero selecciona una fecha</option>';
+          return;
+        }
+
+        const diaDeLaSemana = new Date(fechaSeleccionada + 'T00:00:00').getDay();
+
+        let horaInicio, horaFin;
+        if (diaDeLaSemana === 6) {
+          horaInicio = 10;
+          horaFin = 18;
+        } else if (diaDeLaSemana === 0) {
+          horaInicio = -1;
+        } else {
+          horaInicio = 9;
+          horaFin = 20;
+        }
+
+        horaSelect.innerHTML = '';
+
+        if (horaInicio === -1) {
+          horaSelect.innerHTML = '<option value="">Cerrado los Domingos</option>';
+        } else {
+          for (let h = horaInicio; h < horaFin; h++) {
+            for (let m = 0; m < 60; m += 30) {
+              const horaFormateada = String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0');
+              const option = document.createElement('option');
+              option.value = horaFormateada;
+              option.textContent = horaFormateada;
+              horaSelect.appendChild(option);
+            }
+          }
+          horaSelect.disabled = false;
+        }
+      }
+    </script>
+
+  </th:block>
+
+</th:block>

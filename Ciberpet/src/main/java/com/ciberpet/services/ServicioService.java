@@ -17,4 +17,9 @@ public class ServicioService {
 	public List<Servicio> getAll() {
 		return _servicioRepository.findAll();
 	}
+	
+	public List<Servicio> getActivos() {
+	    return _servicioRepository.findAllByIdEstado(true);
+	}
+	
 }

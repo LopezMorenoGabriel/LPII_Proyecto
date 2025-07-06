@@ -30,6 +30,10 @@ public class ProductoController {
 	
 	@Autowired
 	private CategoriaService categoriaService;
+
+	// ======================================================================
+    // MÉTODOS DE PAGINA PUBLICA
+    // ======================================================================
 	
 	@GetMapping("/mostrarProducto")
     public String mostrarProducto(@RequestParam("codigo") String id, Model model) {
@@ -38,36 +42,34 @@ public class ProductoController {
         return "inicio/mostrarProducto";
     }
 	
-	@GetMapping("/filtradoProductos")
+	// ======================================================================
+    // MÉTODOS DE ADMINISTRADOR (CON PREFIJO /admin)
+    // ======================================================================
+	
+	@GetMapping("/admin/productos")
 	public String filtrado(@ModelAttribute ProductoFilter filtro, Model model) {
-		
 		List<Producto> lstProducto = productoService.search(filtro);
-		
 		model.addAttribute("categorias", categoriaService.getAll());
 		model.addAttribute("filtro", filtro);
 		model.addAttribute("lstProducto", lstProducto);
-		
-		return "dashboard/productos/filtradoProductos";
+		return "admin/productos/listadoProducto";
 	}
 	
-	@GetMapping("/crearProductos")
+	@GetMapping("/admin/productos/crear")
 	public String crearProductos(Model model) {
-		Producto producto = new Producto();
-		producto.setEstado(true);
 		model.addAttribute("categorias", categoriaService.getAll());
-		model.addAttribute("producto", producto);
-		
-		return "dashboard/productos/crearProductos";
+		model.addAttribute("producto", new Producto());
+		return "admin/productos/crearProducto";
 	}
 	
-	@PostMapping("/registrarProducto")
+	@PostMapping("/admin/productos/registrar")
 	public String registrarProducto(@Valid @ModelAttribute Producto producto, BindingResult bindingResult, Model model,
 			RedirectAttributes flash) {
 
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("categorias", categoriaService.getAll());
-			model.addAttribute("alert", Alert.sweetAlertInfo("Falta completar información"));
-			return "dashboard/productos/crearProductos";
+			model.addAttribute("alert", Alert.sweetAlertInfo("Por favor, revisa los errores en el formulario."));
+			return "admin/productos/crearProducto";
 		}
 
 		ResultadoResponse response = productoService.create(producto);
@@ -75,32 +77,30 @@ public class ProductoController {
 		if (!response.success) {
 			model.addAttribute("categorias", categoriaService.getAll());
 			model.addAttribute("alert", Alert.sweetAlertError(response.mensaje));
-			return "dashboard/productos/crearProductos";
+	        return "admin/productos/crearProducto"; 
 		}
 
-		String toast = Alert.sweetToast(response.mensaje, "success", 5000);
-		flash.addFlashAttribute("toast", toast);
-		return "redirect:/filtradoProductos";
+		flash.addFlashAttribute("toast", Alert.sweetToast(response.mensaje, "success", 5000));
+		return "redirect:/admin/productos";
 	}
 	
-	@GetMapping("/edicionProducto/{id}")
+	@GetMapping("/admin/productos/editar/{id}")
 	public String edicion(@PathVariable String id, Model model) {
-		
 		model.addAttribute("categorias", categoriaService.getAll());
 		Producto producto = productoService.getOne(id);
+
 		model.addAttribute("producto", producto);
-		
-		return "dashboard/productos/edicionProducto";
+		return "admin/productos/editarProducto";
 	}
 
-	@PostMapping("/guardarProducto")
+	@PostMapping("/admin/productos/guardar")
 	public String guardar(@Valid @ModelAttribute Producto producto, BindingResult bindingResult, Model model,
 			RedirectAttributes flash) {
 
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("categorias", categoriaService.getAll());
-			model.addAttribute("alert", Alert.sweetAlertInfo("Falta completar información"));
-			return "dashboard/productos/edicionProducto";
+			model.addAttribute("alert", Alert.sweetAlertInfo("Por favor, revisa los errores en el formulario."));
+			return "admin/productos/editarProducto";
 		}
 
 		ResultadoResponse response = productoService.update(producto);
@@ -108,23 +108,21 @@ public class ProductoController {
 		if (!response.success) {
 			model.addAttribute("categorias", categoriaService.getAll());
 			model.addAttribute("alert", Alert.sweetAlertError(response.mensaje));
-			return "dashboard/productos/edicionProducto";
+			return "admin/productos/editarProducto";
 		}
 
-		String toast = Alert.sweetToast(response.mensaje, "success", 5000);
-		flash.addFlashAttribute("toast", toast);
-		return "redirect:/filtradoProductos";
+		flash.addFlashAttribute("toast", Alert.sweetToast(response.mensaje, "success", 5000));
+		return "redirect:/admin/productos";
 	}
-	
-	@PostMapping("/cambiar-estado/{id}")
+
+	@PostMapping("/admin/productos/cambiar-estado/{id}")
 	public String cambiarEstado(@PathVariable String id, RedirectAttributes flash) {
 
 		ResultadoResponse response = productoService.cambiarEstado(id);
 		
 		String toast = Alert.sweetToast(response.mensaje, "success", 5000);
 		flash.addFlashAttribute("toast", toast);
-		return "redirect:/filtradoProductos";
+		return "redirect:/admin/productos";
 	}
-
 	
 }

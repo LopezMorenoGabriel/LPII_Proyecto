@@ -5,7 +5,7 @@
     <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow" th:fragment="topbar">
 
         <!-- Topbar Navbar -->
-        <ul class="navbar-nav ms-auto"> 
+        <ul class="navbar-nav ms-auto"> <!-- ms-auto en lugar de ml-auto (Bootstrap 5) -->
 
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
@@ -19,13 +19,11 @@
                 <!-- Dropdown - User Information -->
                 <ul class="dropdown-menu dropdown-menu-end shadow animated--grow-in"
                     aria-labelledby="userDropdown">
-					<!--
                     <li>
                         <hr class="dropdown-divider">
                     </li>
-					-->
                     <li>
-                        <a id="cerrarSesionLink" class="dropdown-item">
+                        <a class="dropdown-item" th:href="@{/cerrar-sesion}">
                             <i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>
                             Salir
                         </a>

@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 public class ProductoFilter {
     private Integer idCategoria;
-    private Boolean estado;
+    private Boolean idEstado; 
 }

@@ -1,305 +1,191 @@
-<!DOCTYPE HTML>
-<link rel="stylesheet" th:href="@{cssFront/animate.css}">
-<link rel="stylesheet" th:href="@{cssFront/owl.carousel.min.css}">
-<link rel="stylesheet" th:href="@{cssFront/owl.theme.default.css}">
+<th:block th:replace="~{layout :: plantilla(titulo='Inicio', contenido=~{::contenido-principal})}">
 
-<link rel="stylesheet" th:href="@{cssFront/carrusel.css}">
-<link rel="stylesheet" th:href="@{cssFront/tarjetas.css}">
-<link rel="stylesheet" th:href="@{cssFront/carruselServicios.css}">
-<link rel="stylesheet" th:href="@{/cssFront/sobrenosotros.css}">
-<link th:href="@{cssFront/estilos.css}" rel="stylesheet">
-<link th:href="@{cssFront/botones.css}" rel="stylesheet">
-<html xmlns:th="http://www.thymeleaf.org" th:replace="shared/layout :: layoutPagina(~{::contenido})">
+	<th:block th:fragment="contenido-principal">
 
-<div th:fragment="contenido">
-	<main class="heroInicio">
-		<div class="caja-principal">
-			<div class="wow animate__fadeInDown">
-				<h1>
-					Atencion personalizada y productos de calidad para tu mejor amigo.
-					<br> <br> Reserva o compra en linea
-				</h1>
-			</div>
-			<a th:href="@{/reservarCitaCliente}" class="btn-reservar" role="button">Reservar</a>
-			<a th:href="@{/carrito}" class="btn-comprar" role="button">Comprar</a>
-		</div>
-		<img class="wow animate__bounceInRight" src="imgFront/imgInicio.png" alt="">
-	</main>
-	<main id="box-wrap" class="wow animate__backInDown">
-		<div class="box">
-			<img th:src="@{imgFront/iconos/icon-delivery.png}" alt="">Delivery gratis
-			<br> con compras mayores a S/.90
-		</div>
-		<div class="box">
-			<img th:src="@{imgFront/iconos/icon-descuento.png}" alt="">Hasta un 80% de
-			<br> descuento en productos
-		</div>
-		<div class="box">
-			<img th:src="@{imgFront/iconos/icon-calidad.png}" alt="">Calidad y
-			seguridad garantizadas
-		</div>
-		<div class="box">
-			<img class="imghero" th:src="@{imgFront/iconos/icon-pago.png}" alt="">Pagos contraentrega
-		</div>
-	</main>
-	<div id="main2">
-		<br><br><br><br>
-
-		<h2>Nuestros servicios</h2>
-
-		<div class="gallery js-flickity" data-flickity-options='{ "wrapAround": true }'>
-			<div class="gallery-cell">
-				<div class="subtitule"></div>
-				<div class="servicios ">
-					<img th:src="@{imgFront/Estirilizacion.png}" alt="" class="wow animate__slideInLeft">
-					<div class="descripcion wow animate__slideInRight">
-						<h2>Estirilizacion</h2>
-						<p>
-							Prevencion de enfermedades: Reduce el riesgo de infecciones
-							uterinas, tumores mamarios, y problemas prostáticos o
-							testiculares. Control de poblacion: Ayuda a evitar el nacimiento
-							de camadas no deseadas, contribuyendo al bienestar animal.
-							Comportamiento equilibrado: Disminuye comportamientos
-							relacionados con el celo, como marcaje o agresividad. <br> <br>
-						<p>El procedimiento incluye:</p>
-
-						<ol>
-							<li>Evaluacion previa para asegurar que la mascota esté en
-								condiciones optimas de salud.</li>
-							<li>Uso de anestesia general para garantizar un
-								procedimiento sin dolor.</li>
-							<li>Incisiones pequeñas y suturas para minimizar el tiempo
-								de recuperacion.</li>
-							<li>Cuidados postoperatorios para una recuperacion segura y
-								rapida.</li>
-						</ol>
-					</div>
+		<div class="container col-xxl-8 px-4 py-5">
+			<div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+				<div class="col-10 col-sm-8 col-lg-6">
+					<img th:src="@{https://www.ladridosybigotes.com/content/images/size/w1000/2024/10/2024-08-13-animal-hoarding-disorder.webp}" class="d-block mx-lg-auto img-fluid rounded-3 shadow-lg"
+						alt="Perro y gato felices" loading="lazy">
 				</div>
-			</div>
-			<div class="gallery-cell">
-				<div class="subtitule">
-				</div>
-				<div class="servicios ">
-					<img th:src="@{imgFront/bañarperros.png}" alt="" class="wow animate__slideInLeft">
-					<div class="descripcion wow animate__slideInRight">
-						<p>
-							Consiente a tu mascota con nuestro servicio especializado de
-							baño. Contamos con instalaciones seguras, cómodas y adaptadas
-							para perros y gatos de todos los tamaños. Utilizamos productos de
-							alta calidad, adecuados para el cuidado del pelaje y la piel de
-							tu mascota.<br> <br>
-						<p>El procedimiento incluye:</p>
-
-						<ol>
-							<li>Se realiza una limpieza cuidadosa de las orejas para
-								eliminar suciedad y prevenir infecciones.</li>
-							<li>Recortamos las uñas para evitar molestias o daños
-								causados por el crecimiento excesivo.</li>
-							<li>Secamos a tu mascota con secadores de baja temperatura y
-								realizamos un cepillado para dejar su pelaje suave y brillante.</li>
-							<li>Aplicamos una colonia suave y específica para mascotas
-								(si el dueño lo aprueba)</li>
-						</ol>
-					</div>
-				</div>
-			</div>
-			<div class="gallery-cell">
-				<div class="subtitule">
-				</div>
-				<div class="servicios ">
-					<img th:src="@{imgFront/controlpeso.png}" alt="" class="wow animate__slideInLeft">
-					<div class="descripcion wow animate__slideInRight">
-						<h2>Control de Peso y Nutrición para Mascotas</h2>
-						<p>
-							Ofrecemos un programa personalizado de control de peso y
-							nutrición para asegurar que tu mascota mantenga un estilo de vida
-							saludable. Ya sea que tu amigo peludo necesite perder peso, ganar
-							masa o mantener una condición física ideal. <br> <br>
-						<p>El procedimiento incluye:</p>
-
-						<ol>
-							<li>Análisis del peso actual, condición corporal y hábitos
-								alimenticios de tu mascota.</li>
-							<li>Identificación de posibles problemas de salud
-								relacionados con el peso.</li>
-							<li>Revisión periódica del progreso con ajustes necesarios
-								en el plan de alimentación o actividad.</li>
-							<li>Consejos constantes para asegurar el éxito del programa.</li>
-						</ol>
+				<div class="col-lg-6">
+					<h1 class="display-5 fw-bold lh-1 mb-3">El cuidado y cariño que tu mejor amigo merece</h1>
+					<p class="lead">En CiberPet combinamos la pasión por los animales con la más alta calidad
+						profesional. Agenda una cita o explora nuestra tienda de productos seleccionados.</p>
+					<div class="d-grid gap-2 d-md-flex justify-content-md-start">
+						<a th:href="@{/citas}" class="btn btn-success btn-lg px-4 me-md-2">Reservar Cita</a>
+						<a th:href="@{/productos}" class="btn btn-outline-secondary btn-lg px-4">Ver Productos</a>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-
-
-
-	<article>
-		<div class="slider wow animate__slideInUp">
-			<h2>Productos destacados</h2>
-
-			<input type="radio" name="testimonial" id="t-1"> <input type="radio" name="testimonial" id="t-2"> <input
-				type="radio" name="testimonial" id="t-3" checked> <input type="radio" name="testimonial" id="t-4">
-			<input type="radio" name="testimonial" id="t-5">
-			<div class="testimonials">
-				<label class="item" for="t-1"> <img src="imgFront/productos/producto1.png" alt="picture">
-				</label> <label class="item" for="t-2"> <img th:src="@{imgFront/productos/producto2.png}" alt="picture">
-				</label> <label class="item" for="t-3"> <img th:src="@{imgFront/productos/producto3.png}" alt="picture">
-				</label> <label class="item" for="t-4"> <img th:src="@{imgFront/productos/producto4.png}" alt="picture">
-				</label> <label class="item" for="t-5"> <img th:src="@{imgFront/productos/producto6.png}" alt="picture">
-				</label>
-			</div>
-		</div>
-	</article>
-
-	<article class="article2">
-		<div class="caja-texto">
-			<h2 class="h2pqelegirnos">Por qué elegirnos</h2>
-			<div class="wow animate__slideInLeft">
-				<p>
-					<img id="icono-pet" th:src="@{imgFront/iconos/icon-person.png}" alt="">Experiencia y
-					Profesionales Capacitados
-				</p>
-				<ul>
-					<li>Contamos con veterinarios altamente calificados y con años
-						de experiencia en el cuidado de mascotas.</li>
-					<li>Nuestro equipo está en constante capacitación para ofrecer
-						el mejor servicio.</li>
-				</ul>
-				<p>
-					<img id="icono-pet" th:src="@{imgFront/iconos/icon-corazon.png}" alt="">Calidad
-					Garantizada
-				</p>
-				<ul>
-					<li>Trabajamos solo con productos de alta calidad, desde
-						alimentos hasta medicamentos.</li>
-					<li>Cumplimos con los más altos estándares de higiene y
-						cuidado.</li>
-				</ul>
-				<p>
-					<img id="icono-pet" th:src="@{imgFront/iconos/icon-calenda.png}" alt="">Accesibilidad
-				</p>
-				<ul>
-					<li>Horarios extendidos y opciones de atención a domicilio.</li>
-					<li>Precios competitivos y planes de salud accesibles.</li>
-				</ul>
-				<p>
-					<img id="icono-pet" th:src="@{imgFront/iconos/icon-chip.png}" alt="">Tecnología e
-					Innovación
-				</p>
-				<ul>
-					<li>Citas fáciles y rápidas a través de nuestra plataforma
-						online.</li>
-					<li>Chat con veterinarios para consultas rapidas y
-						recordatorios automaticos de vacunas.</li>
-				</ul>
-			</div>
-		</div>
-
-		<div class="cajapq">
-			<img class="imagenpata" th:src="@{imgFront/imgpq.png}" alt="">
-		</div>
-	</article>
-	<h2 class="testimonio">Testimonios</h2>
-	<article class="caja-testimonios wow animate__zoomInUp">
-		<div class="testimonio1">
-			<div class="nft">
-				<div class='main'>
-					<img class='tokenImage' th:src="@{imgFront/resenia/resena1.png}" alt="NFT" />
-					<h2>Joshua A.</h2>
-					<p class='description'>Amo esta tienda. Tienen todo lo que
-						necesito para mis mascotas en un solo lugar. Compre alimento
-						premium para mi perro, juguetes y hasta accesorios unicos para mi
-						gato. Los precios son super competitivos y la atencion del
-						personal es impecable; siempre están dispuestos a ayudar y brindar
-						recomendaciones. Definitivamente se ha convertido en mi tienda de
-						confianza. Altamente recomendada</p>
-					<div class='tokenInfo'>
-						<div class="price">
-							<ins>&#9733;&#9733;&#9733;&#9733;&#9733;</ins>
-						</div>
-						<div class="duration">
-							<ins>&#9719;</ins>
-							<p>11 days left</p>
-						</div>
+		<section class="py-5 bg-light shadow-sm">
+			<div class="container">
+				<div class="row text-center">
+					<div class="col-md-3 col-6 mb-4">
+						<i class="fas fa-truck fa-3x text-success mb-3"></i>
+						<h4 class="fw-bold">Delivery Rápido</h4>
+						<p class="text-muted">Recibe tus productos en la puerta de tu casa. Gratis por compras mayores a
+							S/90.</p>
 					</div>
-					<hr />
+					<div class="col-md-3 col-6 mb-4">
+						<i class="fas fa-shield-alt fa-3x text-success mb-3"></i>
+						<h4 class="fw-bold">Calidad Garantizada</h4>
+						<p class="text-muted">Trabajamos con los mejores estándares y marcas para el cuidado de tu
+							mascota.</p>
+					</div>
+					<div class="col-md-3 col-6 mb-4">
+						<i class="fas fa-stethoscope fa-3x text-success mb-3"></i>
+						<h4 class="fw-bold">Expertos a tu Cuidado</h4>
+						<p class="text-muted">Un equipo de profesionales apasionados y listos para atender cualquier
+							consulta.</p>
+					</div>
+					<div class="col-md-3 col-6 mb-4">
+						<i class="fas fa-hand-holding-heart fa-3x text-success mb-3"></i>
+						<h4 class="fw-bold">Trato con Cariño</h4>
+						<p class="text-muted">Porque entendemos que son más que mascotas, son parte de tu familia.</p>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="testimonio2">
-			<div class="nft">
-				<div class='main'>
-					<img class='tokenImage' th:src="@{imgFront/resenia/resena2.png}" alt="NFT" />
-					<h2>Juan Pablo V.</h2>
-					<p class='description'>Mi perro empezo a rascarse mucho y su
-						piel estaba irritada. Cuando llegue a la veterinaria, estaba
-						bastante preocupado, pero la doctora fue muy clara al explicarme
-						las causas del problema y el tratamiento que debia seguir. Me dio
-						mucha traquilidad saber que Batan estaba en buenas manos. Me gusto
-						mucho la atencion</p>
-					<div class='tokenInfo'>
-						<div class="price">
-							<ins>&#9733;&#9733;&#9733;&#9733;&#9733;</ins>
-						</div>
-						<div class="duration">
-							<ins>&#9719;</ins>
-							<p>32 days left</p>
-						</div>
-					</div>
-					<hr />
-				</div>
-			</div>
-		</div>
-		<div class="testimonio3">
-			<div class="nft">
-				<div class='main'>
-					<img class='tokenImage' th:src="@{imgFront/resenia/resena3.png}" alt="NFT" />
-					<h2>Nayeli C.</h2>
-					<p class='description'>Lleve a mi gata a Ciberpet para su
-						esterilizacion y, aunque al inicio yo estaba nerviosa, como la
-						doctora nos atendio me dio tranquilidad. La cirugía salio perfecta
-						y su recuperacion fue rapida. Totalmente recomendados</p>
-					<div class='tokenInfo'>
-						<div class="price">
-							<ins>&#9733;&#9733;&#9733;&#9733;&#9733;</ins>
-						</div>
-						<div class="duration">
-							<ins>&#9719;</ins>
-							<p>20 days left</p>
-						</div>
-					</div>
-					<hr />
-				</div>
-			</div>
-		</div>
-		<div class="testimonio4">
-			<div class="nft">
-				<div class='main'>
-					<img class='tokenImage' th:src="@{imgFront/resenia/resena4.png}" alt="NFT" />
-					<h2>Vanessa Q.</h2>
-					<p class='description'>Lleve a Lula por un problema estomacal y
-						el equipo de Ciberpet desde la admision fue increiblemnte atento.
-						El veterinario la examino minuciosamente, me brindo
-						recomendaciones para cuidar su salud digestiva y le receto una
-						medicacion que la ayudo a mejorar rapidamente. Muy agradecida.</p>
-					<div class='tokenInfo'>
-						<div class="price">
-							<ins>&#9733;&#9733;&#9733;&#9733;&#9733;</ins>
-						</div>
-						<div class="duration">
-							<ins>&#9719;</ins>
-							<p>03 days left</p>
-						</div>
-					</div>
-					<hr />
-				</div>
-			</div>
-		</div>
-	</article>
+		</section>
 
-	<script th:src="@{/jsFront/main2.js}"></script>
-</div>
+		<section class="my-5">
+			<div class="container">
+				<div class="text-center mb-5">
+					<h2 class="display-6 fw-bold">Nuestros Servicios</h2>
+					<p class="lead text-muted">Todo lo que necesitas para mantener a tu mascota sana y feliz.</p>
+				</div>
 
-</html>
+				<div class="row align-items-center mb-5">
+					<div class="col-md-6">
+						<img th:src="@{https://universidadeuropea.com/resources/media/images/medicina-veterinaria-800x450.width-640.jpg}" alt="Consultas Generales"
+							class="img-fluid rounded-3 shadow-sm">
+					</div>
+					<div class="col-md-6 ps-md-5 mt-4 mt-md-0">
+						<h3 class="fw-bold">Consultas y Vacunación</h3>
+						<p class="text-muted">Chequeos preventivos, diagnóstico y tratamiento de enfermedades.
+							Mantenemos al
+							día el esquema de vacunación para proteger a tu compañero de vida de forma segura y eficaz.
+						</p>
+						<a th:href="@{/servicios/consultas}" class="btn btn-outline-success">Más Información</a>
+					</div>
+				</div>
+
+				<div class="row align-items-center mb-5">
+					<div class="col-md-6 order-md-last">
+						<img th:src="@{https://arqa.com/empresas/wp-content/uploads/sites/2/2023/11/har03083-768x512.jpg}" alt="Baño y Peluquería"
+							class="img-fluid rounded-3 shadow-sm">
+					</div>
+					<div class="col-md-6 pe-md-5 mt-4 mt-md-0">
+						<h3 class="fw-bold">Baño y Peluquería</h3>
+						<p class="text-muted">Un servicio de grooming profesional con productos hipoalergénicos de alta
+							calidad para cuidar su piel y pelaje. Incluye corte de uñas, limpieza de oídos y mucho
+							cariño.
+						</p>
+						<a th:href="@{/servicios/grooming}" class="btn btn-outline-success">Más Información</a>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="py-5 bg-light shadow-sm">
+			<div class="container">
+				<div class="text-center mb-5">
+					<h2 class="display-6 fw-bold">Clientes que confían en nosotros</h2>
+					<p class="lead text-muted">La tranquilidad de nuestros clientes es nuestro mejor testimonio.</p>
+				</div>
+				<div class="row g-4">
+					<div class="col-lg-4">
+						<div class="card h-100 border-0 shadow-sm">
+							<div class="card-body p-4 text-center">
+								<img th:src="@{/imgFront/resenia/resena1.png}" class="rounded-circle mb-3"
+									alt="Foto de Joshua A." style="width: 100px; height: 100px; object-fit: cover;">
+								<figure class="mb-0">
+									<blockquote class="blockquote">
+										<p>"Amo esta tienda. Tienen todo lo que necesito para mis mascotas en un solo
+											lugar. La atención del personal es impecable; siempre dispuestos a ayudar."
+										</p>
+									</blockquote>
+									<figcaption class="blockquote-footer mt-3">
+										<cite title="Source Title">Joshua A.</cite>
+									</figcaption>
+								</figure>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4">
+						<div class="card h-100 border-0 shadow-sm">
+							<div class="card-body p-4 text-center">
+								<img th:src="@{/imgFront/resenia/resena2.png}" class="rounded-circle mb-3"
+									alt="Foto de Juan Pablo V." style="width: 100px; height: 100px; object-fit: cover;">
+								<figure class="mb-0">
+									<blockquote class="blockquote">
+										<p>"Mi perro empezó a rascarse mucho y la doctora fue muy clara al explicarme
+											las causas y el tratamiento. Me dio mucha tranquilidad saber que estaba en
+											buenas manos."</p>
+									</blockquote>
+									<figcaption class="blockquote-footer mt-3">
+										<cite title="Source Title">Juan Pablo V.</cite>
+									</figcaption>
+								</figure>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4">
+						<div class="card h-100 border-0 shadow-sm">
+							<div class="card-body p-4 text-center">
+								<img th:src="@{/imgFront/resenia/resena3.png}" class="rounded-circle mb-3"
+									alt="Foto de Nayeli C." style="width: 100px; height: 100px; object-fit: cover;">
+								<figure class="mb-0">
+									<blockquote class="blockquote">
+										<p>"Llevé a mi gata para su esterilización y, aunque estaba nerviosa, el equipo
+											me atendió de maravilla. La cirugía salió perfecta y su recuperación fue
+											rápida. Recomendados."</p>
+									</blockquote>
+									<figcaption class="blockquote-footer mt-3">
+										<cite title="Source Title">Nayeli C.</cite>
+									</figcaption>
+								</figure>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="py-5 bg-success text-white">
+			<div class="container text-center">
+				<h2 class="display-5 fw-bold">¿Listo para darle el mejor cuidado?</h2>
+				<p class="lead my-4">Nuestro equipo está listo para atenderte. Agenda tu cita hoy mismo o contáctanos
+					para cualquier consulta.</p>
+				<a th:href="@{/citas}" class="btn btn-light btn-lg fw-bold text-success">Agendar una Cita</a>
+			</div>
+		</section>
+
+		<section class="my-5">
+			<div class="container">
+				<h3 class="text-center text-muted mb-4">Trabajamos con las mejores marcas</h3>
+				<div class="row mt-4 g-3">
+					<div class="col-6 col-md-3 text-center">
+						<img th:src="@{https://placehold.co/400x145/black/white?text=Royal Canin}" class="img-fluid opacity-75"
+							alt="Royal Canin" />
+					</div>
+					<div class="col-6 col-md-3 text-center">
+						<img th:src="@{https://placehold.co/400x145/black/white?text=Pro Plan}" class="img-fluid opacity-75" alt="Pro Plan" />
+					</div>
+					<div class="col-6 col-md-3 text-center">
+						<img th:src="@{https://placehold.co/400x145/black/white?text=Bravecto}" class="img-fluid opacity-75" alt="Bravecto" />
+					</div>
+					<div class="col-6 col-md-3 text-center">
+						<img th:src="@{https://placehold.co/400x145/black/white?text=NexGard}" class="img-fluid opacity-75" alt="NexGard" />
+					</div>
+				</div>
+			</div>
+		</section>
+
+	</th:block>
+
+
+
+</th:block>

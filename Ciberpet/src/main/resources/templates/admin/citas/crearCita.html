@@ -1,0 +1,76 @@
+<th:block th:replace="~{admin/layout_admin_bs5 :: plantilla_admin(
+    titulo='Nueva Cita',
+    contenido_admin=~{::#contenido-crear-cita},
+    seccion_scripts=~{::#scripts-crear-cita}
+)}">
+
+    <div id="contenido-crear-cita">
+        <div class="row mb-3 align-items-center">
+            <div class="col-md-10">
+                <h2 class="m-0">Registrar Nueva Cita</h2>
+            </div>
+            <div class="col-md-2 text-end">
+                <a th:href="@{/admin/citas}" class="btn btn-dark">
+                    <i class="fas fa-arrow-left me-1"></i>Regresar
+                </a>
+            </div>
+        </div>
+
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <form th:action="@{/admin/citas/registrar}" method="post" th:object="${cita}" class="needs-validation" novalidate>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="usuario" class="form-label">Cliente</label>
+                            <select class="form-select" th:field="*{usuario.idUsuario}" th:classappend="${#fields.hasErrors('usuario.idUsuario')} ? 'is-invalid' : ''">
+                                <option value="">-- Seleccione --</option>
+                                <option th:each="cli : ${clientes}" th:value="${cli.idUsuario}" th:text="${cli.nombreCompleto}"></option>
+                            </select>
+                            <div class="invalid-feedback" th:errors="*{usuario.idUsuario}"></div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="servicio" class="form-label">Servicio</label>
+                            <select class="form-select" th:field="*{servicio.idServicio}" th:classappend="${#fields.hasErrors('servicio.idServicio')} ? 'is-invalid' : ''">
+                                <option value="">-- Seleccione --</option>
+                                <option th:each="srv : ${servicios}" th:value="${srv.idServicio}" th:text="${srv.nombre}"></option>
+                            </select>
+                            <div class="invalid-feedback" th:errors="*{servicio.idServicio}"></div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="fechaHoraCita" class="form-label">Fecha y Hora</label>
+                            <input type="datetime-local" class="form-control" th:field="*{fechaHoraCita}" th:classappend="${#fields.hasErrors('fechaHoraCita')} ? 'is-invalid' : ''">
+                            <div class="invalid-feedback" th:errors="*{fechaHoraCita}"></div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="motivo" class="form-label">Motivo</label>
+                            <input type="text" class="form-control" th:field="*{motivo}" placeholder="Motivo de la cita" th:classappend="${#fields.hasErrors('motivo')} ? 'is-invalid' : ''">
+                            <div class="invalid-feedback" th:errors="*{motivo}"></div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a th:href="@{/admin/citas/crear}" class="btn btn-outline-secondary">
+                            <i class="fas fa-eraser me-1"></i> Limpiar
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-1"></i> Registrar
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="scripts-crear-cita">
+        <th:block th:if="${alert != null}" th:utext="${alert}"></th:block>
+        <th:block th:if="${toast != null}" th:utext="${toast}"></th:block>
+    </div>
+
+</th:block>

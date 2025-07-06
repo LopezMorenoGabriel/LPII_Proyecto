@@ -1,0 +1,7 @@
+
+
+
+#carruselIndex img {
+    max-height: 350px;
+    object-fit: cover;
+}

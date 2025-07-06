@@ -1,5 +1,7 @@
 package com.ciberpet.models;
 
+import java.time.LocalDate;
+import java.math.BigDecimal;
 import org.hibernate.annotations.DynamicInsert;
 
 import jakarta.persistence.Column;
@@ -47,19 +49,21 @@ public class Producto {
     @Column(name = "precio", nullable = false)
     @NotNull(message = "El precio es obligatorio")
     @DecimalMin(value = "0.01", inclusive = true, message = "El precio debe ser mayor que cero")
-    private Double precio;
+    private BigDecimal precio;
 
     @Column(name = "stock", nullable = false)
     @NotNull(message = "El stock es obligatorio")
     @Min(value = 0, message = "El stock no puede ser negativo")
     private Integer stock;
 
+    @Column(name = "estado", nullable = false)
+    private Boolean idEstado;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idCategoria", nullable = false)
     @NotNull(message = "Debe seleccionar una categoría")
     private Categoria categoria;
-    
-    @Column(name = "estado", nullable = false)
-    private Boolean estado;
 
+    @Column(name = "fecha_registro")
+    private LocalDate fechaRegistro;
 }

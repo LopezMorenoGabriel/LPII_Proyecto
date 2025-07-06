@@ -1,0 +1,89 @@
+<th:block th:replace="~{admin/layout_admin_bs5 :: plantilla_admin(
+    titulo='Editar Producto', 
+    contenido_admin=~{::#contenido-editar-producto}, 
+    seccion_scripts=~{::#scripts-editar-producto}
+)}">
+
+    <div id="contenido-editar-producto">
+        <div class="row mb-3 align-items-center">
+            <div class="col-md-10">
+                <h2 class="m-0" th:text="|Editar Producto: ${producto.nombreProducto}|">Editar Producto</h2>
+            </div>
+            <div class="col-md-2 text-end">
+                <a th:href="@{/admin/productos}" class="btn btn-dark">
+                    <i class="fas fa-arrow-left me-1"></i>Regresar
+                </a>
+            </div>
+        </div>
+
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <form th:action="@{/admin/productos/guardar}" method="post" th:object="${producto}" class="needs-validation" novalidate>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label for="idProducto" class="form-label">Código</label>
+                            <input type="text" th:field="*{idProducto}" class="form-control" readonly>
+                        </div>
+                        <div class="col-md-8">
+                            <label for="nombreProducto" class="form-label">Nombre del Producto</label>
+                            <input type="text" th:field="*{nombreProducto}" class="form-control" placeholder="Ej. Shampoo para perros" th:classappend="${#fields.hasErrors('nombreProducto')} ? 'is-invalid' : ''">
+                            <div class="invalid-feedback" th:errors="*{nombreProducto}"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="descripProducto" class="form-label">Descripción</label>
+                        <input type="text" th:field="*{descripProducto}" class="form-control" placeholder="Breve descripción" th:classappend="${#fields.hasErrors('descripProducto')} ? 'is-invalid' : ''">
+                        <div class="invalid-feedback" th:errors="*{descripProducto}"></div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="stock" class="form-label">Stock</label>
+                            <input type="number" th:field="*{stock}" class="form-control" placeholder="0" th:classappend="${#fields.hasErrors('stock')} ? 'is-invalid' : ''">
+                            <div class="invalid-feedback" th:errors="*{stock}"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="precio" class="form-label">Precio</label>
+                            <input type="number" step="0.01" th:field="*{precio}" class="form-control" placeholder="0.00" th:classappend="${#fields.hasErrors('precio')} ? 'is-invalid' : ''">
+                            <div class="invalid-feedback" th:errors="*{precio}"></div>
+                        </div>
+                    </div>
+					<div class="row mb-4">
+					    <div class="col-md-6">
+					        <label for="categoria" class="form-label">Categoría</label>
+					        <select class="form-select" th:field="*{categoria}" th:classappend="${#fields.hasErrors('categoria')} ? 'is-invalid' : ''">
+					            <option value="">-- Seleccione --</option>
+					            <option th:each="cat : ${categorias}" th:value="${cat.idCategoria}" th:text="${cat.descripcion}"></option>
+					        </select>
+					        <div class="invalid-feedback" th:errors="*{categoria}"></div>
+					    </div>
+					    <div class="col-md-6">
+					        <label for="idEstado" class="form-label">Estado</label>
+					        <select class="form-select" th:field="*{idEstado}" th:classappend="${#fields.hasErrors('idEstado')} ? 'is-invalid' : ''">
+					            <option th:value="true" th:selected="*{idEstado} == true">Activo</option>
+					            <option th:value="false" th:selected="*{idEstado} == false">Inactivo</option>
+					        </select>
+					        <div class="invalid-feedback" th:errors="*{idEstado}"></div>
+					    </div>
+					</div>
+
+
+                    <div class="d-flex justify-content-end">
+                        <a th:href="@{/admin/productos}" class="btn btn-outline-secondary me-2">
+                            <i class="fas fa-times me-1"></i> Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save me-1"></i> Guardar Cambios
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="scripts-editar-producto">
+        <th:block th:if="${alert != null}" th:utext="${alert}"></th:block>
+    </div>
+
+</th:block>

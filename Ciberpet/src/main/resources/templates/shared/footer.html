@@ -1,42 +1,58 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<footer th:fragment="footer-principal" class="bg-dark text-white pt-5">
+	<div class="container text-center text-md-start">
+		<div class="row">
 
-<body>
-
-	<footer th:fragment="piepagina">
-		<div class="caja-footer">
-			<div class="descripcionfoot">
-				<h2>Más sobre la compañía</h2>
+			<div class="col-md-4 col-lg-4 col-xl-4 mx-auto mb-4">
+				<h5 class="text-uppercase fw-bold mb-4">
+					<!--<img th:src="@{/imgFront/Logociberpet.png}" alt="Logo CiberPet" height="30" class="me-2">-->
+					<i class="fas fa-paw fa-lg"></i>
+					CiberPet
+				</h5>
 				<p>
-					Desde 2006, nos dedicamos al cuidado integral de las mascotas, ofreciendo servicios innovadores,
-					infraestructura adecuada y atención profesional de alta calidad, siempre enfocados en brindarles el
-					trato y cuidado que merecen.
+					Apasionados por el bienestar animal. Ofrecemos medicina veterinaria de vanguardia con un trato cercano y compasivo, porque sabemos que son parte de tu familia.
 				</p>
+				<div class="mt-4">
+					<a href="#" class="btn btn-outline-light btn-floating m-1" role="button"><i class="fab fa-facebook-f"></i></a>
+					<a href="#" class="btn btn-outline-light btn-floating m-1" role="button"><i class="fab fa-instagram"></i></a>
+					<a href="#" class="btn btn-outline-light btn-floating m-1" role="button"><i class="fab fa-whatsapp"></i></a>
+				</div>
 			</div>
 
-			<div class="caja-redes">
-				<h2>Redes sociales :</h2>
-				<a href="#"><img th:src="@{/imgFront/facebook.png}" alt=""></a>
-				<a href="#"><img th:src="@{/imgFront/insta.png}" alt=""></a>
-				<a href="#"><img th:src="@{/imgFront/twitter.png}" alt=""></a>
-				<a href="#"><img th:src="@{/imgFront/youtube.png}" alt=""></a>
+			<div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+				<h5 class="text-uppercase fw-bold mb-4">Links Útiles</h5>
+				<ul class="list-unstyled">
+					<li class="mb-2"><a th:href="@{/nosotros}" class="text-white-50 text-decoration-none">Sobre Nosotros</a></li>
+					<li class="mb-2"><a th:href="@{/productos}" class="text-white-50 text-decoration-none">Productos</a></li>
+					<li class="mb-2"><a th:href="@{/agendar-cita}" class="text-white-50 text-decoration-none">Citas</a></li>
+					<li class="mb-2"><a th:href="@{/contacto}" class="text-white-50 text-decoration-none">Contacto</a></li>
+				</ul>
 			</div>
 
-			<div class="caja-contacto">
-				<h2>Contáctanos:</h2>
-				<p><img th:src="@{/imgFront/iconos/icon-email.png}" alt="">vetipetveterinaria@gmail.com</p>
-				<p><img th:src="@{/imgFront/iconos/icon-email.png}" alt="">info@vetipetveterinaria.com</p>
-				<p><img th:src="@{/imgFront/iconos/icon-telef.png}" alt="">992-796-689</p>
-				<p><img th:src="@{/imgFront/iconos/icon-telef.png}" alt="">+(1) 522-8449</p>
-				<p><img th:src="@{/imgFront/iconos/icon-geo.png}" alt="">Urb.Villa del Norte - Los Olivos</p>
+			<div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+				<h5 class="text-uppercase fw-bold mb-4">Contacto</h5>
+				<ul class="list-unstyled">
+					<li class="mb-2"><i class="fas fa-home me-3"></i> Av. Principal 123, Lima, Perú</li>
+					<li class="mb-2"><i class="fas fa-envelope me-3"></i><a href="mailto:consultas@ciberpet.com" class="text-white-50 text-decoration-none">consultas@ciberpet.com</a></li>
+					<li class="mb-2"><i class="fas fa-phone me-3"></i> +51 987 654 321</li>
+					<li class="mb-2"><i class="fas fa-print me-3"></i> (01) 456-7890</li>
+				</ul>
 			</div>
+
+			<div class="col-md-2 col-lg-3 col-xl-3 mx-auto mb-4">
+				<h5 class="text-uppercase fw-bold mb-4">Boletín</h5>
+				<p class="text-white-50">Recibe consejos y promociones especiales para tu mascota.</p>
+				<form action="#">
+					<div class="input-group mb-3">
+						<input type="email" class="form-control" placeholder="Tu email" aria-label="Tu email">
+						<button class="btn btn-success" type="submit">Suscribirse</button>
+					</div>
+				</form>
+			</div>
+
 		</div>
+	</div>
 
-		<div class="derechos">
-			<p>© 2024 CIBERPET. Todos los derechos reservados.</p>
-		</div>
-	</footer>
-	
-</body>
-
-</html>
+	<div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+		© <span th:text="${#dates.year(#dates.createNow())}">2025</span> CiberPet. Todos los derechos reservados.
+	</div>
+</footer>
